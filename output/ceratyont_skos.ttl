@@ -3,6 +3,8 @@
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 ceratyont:collection_generic_potforms a skos:Collection ;
     rdfs:label "Generic Potforms"@en ;
@@ -7748,9 +7750,11 @@ ceratyont:scheme a skos:ConceptScheme ;
     dct:creator "Florian Thiery" ;
     dct:description "SKOS terminology for ceramic typologies (Samian Ware), derived from the CeraTyOnt ontology."@en ;
     dct:hasVersion "0.1" ;
+    dct:license <https://creativecommons.org/licenses/by/4.0/> ;
     dct:publisher "RGZM" ;
     dct:rights "CC BY 4.0" ;
     dct:title "CeraTyOnt Terminology"@en ;
+    vann:preferredNamespaceUri "http://www.w3id.org/archlink/terms/ceratyont-terminology/"^^xsd:string ;
     skos:hasTopConcept ceratyont:generic_107901,
         ceratyont:generic_113058,
         ceratyont:generic_115126,
@@ -7810,5 +7814,6 @@ ceratyont:scheme a skos:ConceptScheme ;
         ceratyont:service_3010,
         ceratyont:tradition_2001,
         ceratyont:tradition_2002,
-        ceratyont:tradition_2003 .
+        ceratyont:tradition_2003 ;
+    skos:prefLabel "CeraTyOnt Terminology"@en .
 
