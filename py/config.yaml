@@ -1,0 +1,103 @@
+# ============================================================================
+# CeraTyOnt Terminology — Configuration
+# ----------------------------------------------------------------------------
+# Change paths, base URIs, column names here — NOT in the Python code.
+# ============================================================================
+
+# --- Namespaces & base URIs ---
+namespaces:
+  base_uri: "http://www.w3id.org/archlink/terms/ceratyont-terminology/"
+  # Trailing slash is important — IRIs are concatenated: base_uri + "potform_1"
+  scheme_iri: "http://www.w3id.org/archlink/terms/ceratyont-terminology/scheme"
+  image_base_url: "https://raw.githubusercontent.com/archaeolink/CeraTyOnt/main/img/"
+  # image filenames from the `image` column are appended to this URL
+
+# --- Language tag for all labels ---
+language: "en"
+
+# --- Input CSV files (relative to project root, i.e. the folder containing data/) ---
+input:
+  data_dir: "../data"
+  files:
+    generic:    "tbllookupformsgeneric.csv"
+    tradition:  "tbllookupformstradition.csv"
+    service:    "tbllookupformsservices.csv"
+    publisher:  "tbllookuppublisher.csv"
+    potforms:   "v_ceratyont_potforms_distinct.csv"
+
+# --- Column mappings (CSV header → logical field) ---
+# Change these if your CSV columns get renamed.
+columns:
+  generic:
+    id: "id"
+    label: "genericform"
+  tradition:
+    id: "id"
+    label: "tradition"
+    color: "traditioncolor"
+  service:
+    id: "id"
+    label: "service"
+    color: "servicecolor"
+  publisher:
+    id: "id"
+    label: "publisher"
+    color: "color"
+  potforms:
+    id: "id"
+    label: "label"
+    image: "image"
+    publisher: "publisher"  # references publisher.label (NOT id — it's a name-join in source)
+
+# --- IRI local-name prefixes (for readability in the output) ---
+# Final IRI = base_uri + prefix + id  e.g.  …/potform_1
+iri_prefixes:
+  generic:   "generic_"
+  tradition: "tradition_"
+  service:   "service_"
+  publisher: "publisher_"
+  potform:   "potform_"
+
+# --- Collection (facet) definitions ---
+# One skos:Collection per class, grouping all concepts of that class.
+collections:
+  generic:
+    local_name: "collection_generic_potforms"
+    label:      "Generic Potforms"
+  tradition:
+    local_name: "collection_traditions"
+    label:      "Traditions"
+  service:
+    local_name: "collection_services"
+    label:      "Services"
+  publisher:
+    local_name: "collection_publishers"
+    label:      "Publishers"
+  potform:
+    local_name: "collection_potforms"
+    label:      "Potforms"
+
+# --- Handling of sentinel values in CSV ---
+# These strings are treated as "no value" (NULL) rather than literal data.
+null_markers:
+  - "NULL"
+  - "null"
+  - ""
+  - "N/A"
+
+# --- Output ---
+output:
+  dir: "../output"
+  skos_file: "ceratyont_skos.ttl"
+  shapes_file: "shapes/ceratyont_shapes.ttl"  # relative to py/
+  validation_report: "validation_report.ttl"
+
+# --- Concept scheme metadata ---
+scheme:
+  title: "CeraTyOnt Terminology"
+  description: "SKOS terminology for ceramic typologies (Samian Ware), derived from the CeraTyOnt ontology."
+  creator: "Florian Thiery"
+  contributor: "Allard Mees"
+  publisher: "RGZM"
+  rights: "CC BY 4.0"
+  version: "0.1"

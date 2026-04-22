@@ -1,0 +1,139 @@
+# =============================================================================
+# CeraTyOnt Terminology — SHACL Shapes
+# -----------------------------------------------------------------------------
+# Validates structural expectations of the generated SKOS terminology.
+# Run via validate_skos.py (which uses pyshacl).
+# =============================================================================
+
+@prefix sh:         <http://www.w3.org/ns/shacl#> .
+@prefix skos:       <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct:        <http://purl.org/dc/terms/> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix ceratyont:  <http://www.w3id.org/archlink/terms/ceratyont-terminology/> .
+
+
+# -----------------------------------------------------------------------------
+# 1) Every skos:Concept must have exactly one English prefLabel and be in scheme
+# -----------------------------------------------------------------------------
+ceratyont:ConceptShape
+    a sh:NodeShape ;
+    sh:targetClass skos:Concept ;
+    sh:name "Concept Shape" ;
+    sh:description "Basic requirements for every concept in the terminology." ;
+
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype rdf:langString ;
+        sh:languageIn ( "en" ) ;
+        sh:message "Every concept must have exactly one skos:prefLabel with language tag 'en'."
+    ] ;
+
+    sh:property [
+        sh:path skos:inScheme ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "Every concept must be attached to at least one skos:ConceptScheme via skos:inScheme."
+    ] .
+
+
+# -----------------------------------------------------------------------------
+# 2) ConceptScheme itself must have title + description
+# -----------------------------------------------------------------------------
+ceratyont:ConceptSchemeShape
+    a sh:NodeShape ;
+    sh:targetClass skos:ConceptScheme ;
+    sh:name "Concept Scheme Shape" ;
+
+    sh:property [
+        sh:path dct:title ;
+        sh:minCount 1 ;
+        sh:message "ConceptScheme must have a dct:title."
+    ] ;
+
+    sh:property [
+        sh:path dct:description ;
+        sh:minCount 1 ;
+        sh:message "ConceptScheme must have a dct:description."
+    ] .
+
+
+# -----------------------------------------------------------------------------
+# 3) Collections (facets) must have a label and at least one member
+# -----------------------------------------------------------------------------
+ceratyont:CollectionShape
+    a sh:NodeShape ;
+    sh:targetClass skos:Collection ;
+    sh:name "Collection Shape" ;
+
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:minCount 1 ;
+        sh:message "Every skos:Collection must have at least one prefLabel."
+    ] ;
+
+    sh:property [
+        sh:path skos:member ;
+        sh:minCount 1 ;
+        sh:message "Every skos:Collection must have at least one skos:member."
+    ] .
+
+
+# -----------------------------------------------------------------------------
+# 4) foaf:depiction values must be IRIs (not literals)
+#    Applied to all concepts because only some have images.
+# -----------------------------------------------------------------------------
+ceratyont:DepictionShape
+    a sh:NodeShape ;
+    sh:targetClass skos:Concept ;
+    sh:name "Depiction Shape" ;
+
+    sh:property [
+        sh:path foaf:depiction ;
+        sh:nodeKind sh:IRI ;
+        sh:message "foaf:depiction must be an IRI, not a literal."
+    ] .
+
+
+# -----------------------------------------------------------------------------
+# 5) skos:broader / skos:narrower must point to skos:Concept
+# -----------------------------------------------------------------------------
+ceratyont:HierarchicalRelationShape
+    a sh:NodeShape ;
+    sh:targetClass skos:Concept ;
+    sh:name "Hierarchical Relations Shape" ;
+
+    sh:property [
+        sh:path skos:broader ;
+        sh:class skos:Concept ;
+        sh:message "skos:broader target must be a skos:Concept."
+    ] ;
+
+    sh:property [
+        sh:path skos:narrower ;
+        sh:class skos:Concept ;
+        sh:message "skos:narrower target must be a skos:Concept."
+    ] .
+
+
+# -----------------------------------------------------------------------------
+# 6) A concept cannot be its own broader/narrower (no reflexive hierarchy)
+# -----------------------------------------------------------------------------
+ceratyont:NoSelfBroaderShape
+    a sh:NodeShape ;
+    sh:targetClass skos:Concept ;
+    sh:name "No Self-Reference Shape" ;
+    sh:sparql [
+        sh:message "A concept must not be its own skos:broader." ;
+        sh:prefixes ceratyont: ;
+        sh:select """
+            PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+            SELECT $this WHERE {
+                $this skos:broader $this .
+            }
+        """
+    ] .
