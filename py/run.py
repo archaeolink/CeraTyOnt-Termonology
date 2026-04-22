@@ -98,12 +98,11 @@ class SkosBuilder:
         self.graph.bind("ceratyont", self.BASE)
 
         self.publisher_by_label: dict[str, URIRef] = {}
+        # populated in build_facets(); each kind → its facet-concept IRI
+        self.facet_by_kind: dict[str, URIRef] = {}
 
     def concept_iri(self, kind: str, identifier: str) -> URIRef:
         return URIRef(f"{self.BASE}{self.cfg['iri_prefixes'][kind]}{identifier}")
-
-    def collection_iri(self, kind: str) -> URIRef:
-        return URIRef(f"{self.BASE}{self.cfg['collections'][kind]['local_name']}")
 
     def build_scheme(self) -> None:
         g, s, lang = self.graph, self.SCHEME, self.lang
@@ -125,25 +124,39 @@ class SkosBuilder:
                Literal(meta["preferred_namespace_uri"], datatype=XSD.string)))
         log.info("ConceptScheme: %s", s)
 
-    def build_collection(self, kind: str) -> URIRef:
-        iri = self.collection_iri(kind)
-        label = self.cfg["collections"][kind]["label"]
-        self.graph.add((iri, RDF.type, SKOS.Collection))
-        self.graph.add((iri, SKOS.prefLabel, Literal(label, lang=self.lang)))
-        self.graph.add((iri, RDFS.label, Literal(label, lang=self.lang)))
-        return iri
+    def build_facets(self) -> None:
+        """Create one skos:Concept per facet (acts as a branch root / Top-Concept)."""
+        for kind, meta in self.cfg["facets"].items():
+            iri = URIRef(f"{self.BASE}{meta['local_name']}")
+            self.facet_by_kind[kind] = iri
+            self.graph.add((iri, RDF.type, SKOS.Concept))
+            self.graph.add((iri, SKOS.inScheme, self.SCHEME))
+            self.graph.add((iri, SKOS.prefLabel, Literal(meta["label"], lang=self.lang)))
+            self.graph.add((iri, RDFS.label, Literal(meta["label"], lang=self.lang)))
+            if meta.get("definition"):
+                self.graph.add((iri, SKOS.definition,
+                                Literal(meta["definition"], lang=self.lang)))
+            # Facet concepts are the top concepts of the scheme
+            self.graph.add((iri, SKOS.topConceptOf, self.SCHEME))
+            self.graph.add((self.SCHEME, SKOS.hasTopConcept, iri))
+            log.info("Facet concept: %s (%s)", meta["label"], iri)
 
     def _build_simple_concepts(
         self,
         kind: str,
         df: pd.DataFrame,
-        top_concept: bool,
         color_col_key: str | None = None,
     ) -> dict[str, URIRef]:
+        """Build concepts for a simple class (generic/tradition/service/publisher).
+
+        Each concept becomes a narrower of the facet concept for this kind.
+        Facet concepts themselves are the scheme's top concepts (built in
+        build_facets, which must run before this).
+        """
         col = self.cfg["columns"][kind]
         id_col, label_col = col["id"], col["label"]
         color_col = col.get(color_col_key) if color_col_key else None
-        collection_iri = self.build_collection(kind)
+        facet_iri = self.facet_by_kind[kind]
         built: dict[str, URIRef] = {}
 
         for _, row in df.iterrows():
@@ -159,11 +172,9 @@ class SkosBuilder:
             self.graph.add((concept, SKOS.prefLabel, Literal(label, lang=self.lang)))
             self.graph.add((concept, RDFS.label, Literal(label, lang=self.lang)))
 
-            if top_concept:
-                self.graph.add((concept, SKOS.topConceptOf, self.SCHEME))
-                self.graph.add((self.SCHEME, SKOS.hasTopConcept, concept))
-
-            self.graph.add((collection_iri, SKOS.member, concept))
+            # Hierarchy: member → facet concept (both directions, per SKOS convention)
+            self.graph.add((concept, SKOS.broader, facet_iri))
+            self.graph.add((facet_iri, SKOS.narrower, concept))
 
             note = make_color_note(row, color_col)
             if note:
@@ -174,11 +185,11 @@ class SkosBuilder:
         log.info("  built %d %s concepts", len(built), kind)
         return built
 
-    def build_generics(self, df):    return self._build_simple_concepts("generic", df, True)
-    def build_traditions(self, df):  return self._build_simple_concepts("tradition", df, True, "color")
-    def build_services(self, df):    return self._build_simple_concepts("service", df, True, "color")
+    def build_generics(self, df):    return self._build_simple_concepts("generic", df)
+    def build_traditions(self, df):  return self._build_simple_concepts("tradition", df, "color")
+    def build_services(self, df):    return self._build_simple_concepts("service", df, "color")
     def build_publishers(self, df):
-        built = self._build_simple_concepts("publisher", df, True, "color")
+        built = self._build_simple_concepts("publisher", df, "color")
         self.publisher_by_label = dict(built)
         return built
 
@@ -186,9 +197,9 @@ class SkosBuilder:
         col = self.cfg["columns"]["potforms"]
         id_col, label_col = col["id"], col["label"]
         image_col, publisher_col = col["image"], col["publisher"]
-        collection_iri = self.build_collection("potform")
         built: dict[str, URIRef] = {}
         unresolved: set[str] = set()
+        orphans: list[str] = []  # potforms with no publisher link — no broader at all
 
         for _, row in df.iterrows():
             if is_null(row[id_col], self.null_markers):
@@ -202,18 +213,20 @@ class SkosBuilder:
             self.graph.add((concept, SKOS.inScheme, self.SCHEME))
             self.graph.add((concept, SKOS.prefLabel, Literal(label, lang=self.lang)))
             self.graph.add((concept, RDFS.label, Literal(label, lang=self.lang)))
-            self.graph.add((collection_iri, SKOS.member, concept))
 
             img = str(row[image_col]).strip() if image_col in row else ""
             if img and not is_null(img, self.null_markers):
                 self.graph.add((concept, FOAF.depiction, URIRef(f"{self.IMG_BASE}{img}")))
 
+            # Hierarchy: Potforms live under their Publisher (which lives under
+            # the Publishers facet). No dedicated Potforms facet.
             pub_label = str(row[publisher_col]).strip() if publisher_col in row else ""
             if is_null(pub_label, self.null_markers):
                 self.graph.add((
                     concept, SKOS.note,
                     Literal("publisher: unknown (NULL in source data)", lang=self.lang),
                 ))
+                orphans.append(ident)
             elif pub_label in self.publisher_by_label:
                 pub_iri = self.publisher_by_label[pub_label]
                 self.graph.add((concept, SKOS.broader, pub_iri))
@@ -230,6 +243,12 @@ class SkosBuilder:
 
         if unresolved:
             log.warning("  unknown publishers referenced: %s", sorted(unresolved))
+        if orphans:
+            log.info(
+                "  %d potform(s) have no publisher link (NULL in source) — "
+                "they live in the scheme but outside the facet hierarchy",
+                len(orphans),
+            )
         log.info("  built %d potform concepts", len(built))
         return built
 
@@ -251,6 +270,7 @@ def build_skos(cfg: dict, project_root: Path) -> tuple[Path, int]:
     log.info("Building SKOS graph…")
     b = SkosBuilder(cfg)
     b.build_scheme()
+    b.build_facets()                      # facet top-concepts first
     b.build_generics(df_generic)
     b.build_traditions(df_tradition)
     b.build_services(df_service)

@@ -1,6 +1,6 @@
 # SHACL Validation Report
 
-*Generated: 2026-04-22 16:09 UTC*
+*Generated: 2026-04-22 16:27 UTC*
 
 ## Inputs
 
@@ -11,12 +11,12 @@
 
 ## Data graph statistics
 
-- Total triples: **6879**
+- Total triples: **5966**
 - skos:ConceptScheme: **1**
-- skos:Concept: **926**
-- skos:Collection: **5**
+- skos:Concept: **930**
+- skos:Collection: **0**
 - foaf:depiction statements: **359**
-- skos:broader edges: **850**
+- skos:broader edges: **910**
 
 ## Overall result
 

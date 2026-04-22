@@ -6,952 +6,6 @@
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-ceratyont:collection_generic_potforms a skos:Collection ;
-    rdfs:label "Generic Potforms"@en ;
-    skos:member ceratyont:generic_107901,
-        ceratyont:generic_113058,
-        ceratyont:generic_115126,
-        ceratyont:generic_117509,
-        ceratyont:generic_127029,
-        ceratyont:generic_132166,
-        ceratyont:generic_139864,
-        ceratyont:generic_163272,
-        ceratyont:generic_169715,
-        ceratyont:generic_170645,
-        ceratyont:generic_174619,
-        ceratyont:generic_179407,
-        ceratyont:generic_193689,
-        ceratyont:generic_201167,
-        ceratyont:generic_203267,
-        ceratyont:generic_207560,
-        ceratyont:generic_208844,
-        ceratyont:generic_209365,
-        ceratyont:generic_320733,
-        ceratyont:generic_381941,
-        ceratyont:generic_437165,
-        ceratyont:generic_442476,
-        ceratyont:generic_480718,
-        ceratyont:generic_492739,
-        ceratyont:generic_551917,
-        ceratyont:generic_591889,
-        ceratyont:generic_662716,
-        ceratyont:generic_729940,
-        ceratyont:generic_776552,
-        ceratyont:generic_777121,
-        ceratyont:generic_935796,
-        ceratyont:generic_964607 ;
-    skos:prefLabel "Generic Potforms"@en .
-
-ceratyont:collection_potforms a skos:Collection ;
-    rdfs:label "Potforms"@en ;
-    skos:member ceratyont:potform_1,
-        ceratyont:potform_1000,
-        ceratyont:potform_1001,
-        ceratyont:potform_1002,
-        ceratyont:potform_1003,
-        ceratyont:potform_1004,
-        ceratyont:potform_1005,
-        ceratyont:potform_1006,
-        ceratyont:potform_1007,
-        ceratyont:potform_1008,
-        ceratyont:potform_1009,
-        ceratyont:potform_1010,
-        ceratyont:potform_1011,
-        ceratyont:potform_1012,
-        ceratyont:potform_1013,
-        ceratyont:potform_1014,
-        ceratyont:potform_1015,
-        ceratyont:potform_1016,
-        ceratyont:potform_1017,
-        ceratyont:potform_1018,
-        ceratyont:potform_1019,
-        ceratyont:potform_1020,
-        ceratyont:potform_1021,
-        ceratyont:potform_11,
-        ceratyont:potform_12,
-        ceratyont:potform_13,
-        ceratyont:potform_14,
-        ceratyont:potform_15,
-        ceratyont:potform_155,
-        ceratyont:potform_156,
-        ceratyont:potform_158,
-        ceratyont:potform_159,
-        ceratyont:potform_16,
-        ceratyont:potform_162,
-        ceratyont:potform_164,
-        ceratyont:potform_165,
-        ceratyont:potform_166,
-        ceratyont:potform_167,
-        ceratyont:potform_168,
-        ceratyont:potform_169,
-        ceratyont:potform_17,
-        ceratyont:potform_172,
-        ceratyont:potform_173,
-        ceratyont:potform_174,
-        ceratyont:potform_175,
-        ceratyont:potform_176,
-        ceratyont:potform_177,
-        ceratyont:potform_178,
-        ceratyont:potform_18,
-        ceratyont:potform_180,
-        ceratyont:potform_181,
-        ceratyont:potform_182,
-        ceratyont:potform_184,
-        ceratyont:potform_185,
-        ceratyont:potform_186,
-        ceratyont:potform_187,
-        ceratyont:potform_188,
-        ceratyont:potform_189,
-        ceratyont:potform_19,
-        ceratyont:potform_190,
-        ceratyont:potform_191,
-        ceratyont:potform_192,
-        ceratyont:potform_193,
-        ceratyont:potform_194,
-        ceratyont:potform_195,
-        ceratyont:potform_2,
-        ceratyont:potform_20,
-        ceratyont:potform_21,
-        ceratyont:potform_22,
-        ceratyont:potform_23,
-        ceratyont:potform_24,
-        ceratyont:potform_25,
-        ceratyont:potform_252,
-        ceratyont:potform_254,
-        ceratyont:potform_255,
-        ceratyont:potform_256,
-        ceratyont:potform_257,
-        ceratyont:potform_258,
-        ceratyont:potform_259,
-        ceratyont:potform_26,
-        ceratyont:potform_260,
-        ceratyont:potform_261,
-        ceratyont:potform_262,
-        ceratyont:potform_264,
-        ceratyont:potform_265,
-        ceratyont:potform_266,
-        ceratyont:potform_267,
-        ceratyont:potform_268,
-        ceratyont:potform_269,
-        ceratyont:potform_270,
-        ceratyont:potform_271,
-        ceratyont:potform_272,
-        ceratyont:potform_273,
-        ceratyont:potform_274,
-        ceratyont:potform_275,
-        ceratyont:potform_276,
-        ceratyont:potform_277,
-        ceratyont:potform_279,
-        ceratyont:potform_28,
-        ceratyont:potform_280,
-        ceratyont:potform_281,
-        ceratyont:potform_282,
-        ceratyont:potform_283,
-        ceratyont:potform_284,
-        ceratyont:potform_285,
-        ceratyont:potform_286,
-        ceratyont:potform_287,
-        ceratyont:potform_288,
-        ceratyont:potform_289,
-        ceratyont:potform_29,
-        ceratyont:potform_290,
-        ceratyont:potform_291,
-        ceratyont:potform_292,
-        ceratyont:potform_293,
-        ceratyont:potform_294,
-        ceratyont:potform_295,
-        ceratyont:potform_296,
-        ceratyont:potform_297,
-        ceratyont:potform_298,
-        ceratyont:potform_299,
-        ceratyont:potform_3,
-        ceratyont:potform_30,
-        ceratyont:potform_300,
-        ceratyont:potform_301,
-        ceratyont:potform_302,
-        ceratyont:potform_303,
-        ceratyont:potform_304,
-        ceratyont:potform_305,
-        ceratyont:potform_306,
-        ceratyont:potform_307,
-        ceratyont:potform_308,
-        ceratyont:potform_309,
-        ceratyont:potform_31,
-        ceratyont:potform_310,
-        ceratyont:potform_311,
-        ceratyont:potform_312,
-        ceratyont:potform_313,
-        ceratyont:potform_314,
-        ceratyont:potform_315,
-        ceratyont:potform_316,
-        ceratyont:potform_317,
-        ceratyont:potform_318,
-        ceratyont:potform_319,
-        ceratyont:potform_32,
-        ceratyont:potform_320,
-        ceratyont:potform_321,
-        ceratyont:potform_322,
-        ceratyont:potform_323,
-        ceratyont:potform_324,
-        ceratyont:potform_325,
-        ceratyont:potform_326,
-        ceratyont:potform_327,
-        ceratyont:potform_328,
-        ceratyont:potform_329,
-        ceratyont:potform_33,
-        ceratyont:potform_330,
-        ceratyont:potform_331,
-        ceratyont:potform_332,
-        ceratyont:potform_333,
-        ceratyont:potform_334,
-        ceratyont:potform_335,
-        ceratyont:potform_337,
-        ceratyont:potform_338,
-        ceratyont:potform_339,
-        ceratyont:potform_34,
-        ceratyont:potform_340,
-        ceratyont:potform_341,
-        ceratyont:potform_342,
-        ceratyont:potform_343,
-        ceratyont:potform_344,
-        ceratyont:potform_345,
-        ceratyont:potform_346,
-        ceratyont:potform_347,
-        ceratyont:potform_348,
-        ceratyont:potform_349,
-        ceratyont:potform_35,
-        ceratyont:potform_350,
-        ceratyont:potform_351,
-        ceratyont:potform_352,
-        ceratyont:potform_353,
-        ceratyont:potform_354,
-        ceratyont:potform_355,
-        ceratyont:potform_356,
-        ceratyont:potform_357,
-        ceratyont:potform_358,
-        ceratyont:potform_359,
-        ceratyont:potform_36,
-        ceratyont:potform_360,
-        ceratyont:potform_361,
-        ceratyont:potform_362,
-        ceratyont:potform_363,
-        ceratyont:potform_364,
-        ceratyont:potform_365,
-        ceratyont:potform_366,
-        ceratyont:potform_367,
-        ceratyont:potform_368,
-        ceratyont:potform_369,
-        ceratyont:potform_37,
-        ceratyont:potform_370,
-        ceratyont:potform_371,
-        ceratyont:potform_372,
-        ceratyont:potform_373,
-        ceratyont:potform_374,
-        ceratyont:potform_375,
-        ceratyont:potform_376,
-        ceratyont:potform_377,
-        ceratyont:potform_378,
-        ceratyont:potform_379,
-        ceratyont:potform_38,
-        ceratyont:potform_380,
-        ceratyont:potform_382,
-        ceratyont:potform_383,
-        ceratyont:potform_384,
-        ceratyont:potform_385,
-        ceratyont:potform_386,
-        ceratyont:potform_387,
-        ceratyont:potform_388,
-        ceratyont:potform_389,
-        ceratyont:potform_39,
-        ceratyont:potform_390,
-        ceratyont:potform_391,
-        ceratyont:potform_392,
-        ceratyont:potform_393,
-        ceratyont:potform_394,
-        ceratyont:potform_395,
-        ceratyont:potform_396,
-        ceratyont:potform_397,
-        ceratyont:potform_398,
-        ceratyont:potform_399,
-        ceratyont:potform_4,
-        ceratyont:potform_40,
-        ceratyont:potform_400,
-        ceratyont:potform_401,
-        ceratyont:potform_402,
-        ceratyont:potform_403,
-        ceratyont:potform_404,
-        ceratyont:potform_405,
-        ceratyont:potform_406,
-        ceratyont:potform_407,
-        ceratyont:potform_408,
-        ceratyont:potform_409,
-        ceratyont:potform_41,
-        ceratyont:potform_410,
-        ceratyont:potform_411,
-        ceratyont:potform_412,
-        ceratyont:potform_413,
-        ceratyont:potform_414,
-        ceratyont:potform_415,
-        ceratyont:potform_416,
-        ceratyont:potform_417,
-        ceratyont:potform_418,
-        ceratyont:potform_419,
-        ceratyont:potform_420,
-        ceratyont:potform_421,
-        ceratyont:potform_422,
-        ceratyont:potform_423,
-        ceratyont:potform_424,
-        ceratyont:potform_425,
-        ceratyont:potform_426,
-        ceratyont:potform_427,
-        ceratyont:potform_428,
-        ceratyont:potform_429,
-        ceratyont:potform_43,
-        ceratyont:potform_430,
-        ceratyont:potform_431,
-        ceratyont:potform_432,
-        ceratyont:potform_433,
-        ceratyont:potform_434,
-        ceratyont:potform_435,
-        ceratyont:potform_436,
-        ceratyont:potform_437,
-        ceratyont:potform_438,
-        ceratyont:potform_439,
-        ceratyont:potform_44,
-        ceratyont:potform_440,
-        ceratyont:potform_441,
-        ceratyont:potform_442,
-        ceratyont:potform_443,
-        ceratyont:potform_444,
-        ceratyont:potform_445,
-        ceratyont:potform_446,
-        ceratyont:potform_447,
-        ceratyont:potform_448,
-        ceratyont:potform_449,
-        ceratyont:potform_45,
-        ceratyont:potform_450,
-        ceratyont:potform_451,
-        ceratyont:potform_452,
-        ceratyont:potform_453,
-        ceratyont:potform_454,
-        ceratyont:potform_455,
-        ceratyont:potform_456,
-        ceratyont:potform_457,
-        ceratyont:potform_458,
-        ceratyont:potform_459,
-        ceratyont:potform_46,
-        ceratyont:potform_460,
-        ceratyont:potform_461,
-        ceratyont:potform_462,
-        ceratyont:potform_463,
-        ceratyont:potform_464,
-        ceratyont:potform_465,
-        ceratyont:potform_466,
-        ceratyont:potform_467,
-        ceratyont:potform_468,
-        ceratyont:potform_469,
-        ceratyont:potform_470,
-        ceratyont:potform_471,
-        ceratyont:potform_472,
-        ceratyont:potform_473,
-        ceratyont:potform_474,
-        ceratyont:potform_475,
-        ceratyont:potform_476,
-        ceratyont:potform_477,
-        ceratyont:potform_478,
-        ceratyont:potform_479,
-        ceratyont:potform_48,
-        ceratyont:potform_480,
-        ceratyont:potform_481,
-        ceratyont:potform_482,
-        ceratyont:potform_483,
-        ceratyont:potform_484,
-        ceratyont:potform_485,
-        ceratyont:potform_486,
-        ceratyont:potform_487,
-        ceratyont:potform_488,
-        ceratyont:potform_489,
-        ceratyont:potform_49,
-        ceratyont:potform_490,
-        ceratyont:potform_491,
-        ceratyont:potform_492,
-        ceratyont:potform_493,
-        ceratyont:potform_494,
-        ceratyont:potform_495,
-        ceratyont:potform_496,
-        ceratyont:potform_497,
-        ceratyont:potform_498,
-        ceratyont:potform_499,
-        ceratyont:potform_5,
-        ceratyont:potform_500,
-        ceratyont:potform_501,
-        ceratyont:potform_502,
-        ceratyont:potform_503,
-        ceratyont:potform_504,
-        ceratyont:potform_505,
-        ceratyont:potform_506,
-        ceratyont:potform_507,
-        ceratyont:potform_508,
-        ceratyont:potform_509,
-        ceratyont:potform_51,
-        ceratyont:potform_510,
-        ceratyont:potform_511,
-        ceratyont:potform_512,
-        ceratyont:potform_513,
-        ceratyont:potform_514,
-        ceratyont:potform_515,
-        ceratyont:potform_516,
-        ceratyont:potform_517,
-        ceratyont:potform_518,
-        ceratyont:potform_519,
-        ceratyont:potform_52,
-        ceratyont:potform_520,
-        ceratyont:potform_521,
-        ceratyont:potform_522,
-        ceratyont:potform_523,
-        ceratyont:potform_524,
-        ceratyont:potform_525,
-        ceratyont:potform_526,
-        ceratyont:potform_527,
-        ceratyont:potform_528,
-        ceratyont:potform_529,
-        ceratyont:potform_53,
-        ceratyont:potform_530,
-        ceratyont:potform_531,
-        ceratyont:potform_532,
-        ceratyont:potform_534,
-        ceratyont:potform_535,
-        ceratyont:potform_536,
-        ceratyont:potform_537,
-        ceratyont:potform_538,
-        ceratyont:potform_540,
-        ceratyont:potform_541,
-        ceratyont:potform_542,
-        ceratyont:potform_543,
-        ceratyont:potform_546,
-        ceratyont:potform_547,
-        ceratyont:potform_548,
-        ceratyont:potform_549,
-        ceratyont:potform_550,
-        ceratyont:potform_551,
-        ceratyont:potform_552,
-        ceratyont:potform_553,
-        ceratyont:potform_554,
-        ceratyont:potform_555,
-        ceratyont:potform_556,
-        ceratyont:potform_557,
-        ceratyont:potform_558,
-        ceratyont:potform_559,
-        ceratyont:potform_56,
-        ceratyont:potform_560,
-        ceratyont:potform_561,
-        ceratyont:potform_562,
-        ceratyont:potform_563,
-        ceratyont:potform_564,
-        ceratyont:potform_565,
-        ceratyont:potform_566,
-        ceratyont:potform_567,
-        ceratyont:potform_568,
-        ceratyont:potform_569,
-        ceratyont:potform_57,
-        ceratyont:potform_570,
-        ceratyont:potform_571,
-        ceratyont:potform_573,
-        ceratyont:potform_574,
-        ceratyont:potform_575,
-        ceratyont:potform_576,
-        ceratyont:potform_577,
-        ceratyont:potform_578,
-        ceratyont:potform_579,
-        ceratyont:potform_58,
-        ceratyont:potform_580,
-        ceratyont:potform_581,
-        ceratyont:potform_582,
-        ceratyont:potform_583,
-        ceratyont:potform_584,
-        ceratyont:potform_585,
-        ceratyont:potform_586,
-        ceratyont:potform_587,
-        ceratyont:potform_588,
-        ceratyont:potform_589,
-        ceratyont:potform_59,
-        ceratyont:potform_590,
-        ceratyont:potform_591,
-        ceratyont:potform_592,
-        ceratyont:potform_593,
-        ceratyont:potform_594,
-        ceratyont:potform_595,
-        ceratyont:potform_596,
-        ceratyont:potform_597,
-        ceratyont:potform_598,
-        ceratyont:potform_599,
-        ceratyont:potform_6,
-        ceratyont:potform_60,
-        ceratyont:potform_600,
-        ceratyont:potform_601,
-        ceratyont:potform_602,
-        ceratyont:potform_603,
-        ceratyont:potform_604,
-        ceratyont:potform_605,
-        ceratyont:potform_606,
-        ceratyont:potform_607,
-        ceratyont:potform_608,
-        ceratyont:potform_609,
-        ceratyont:potform_61,
-        ceratyont:potform_610,
-        ceratyont:potform_611,
-        ceratyont:potform_612,
-        ceratyont:potform_613,
-        ceratyont:potform_614,
-        ceratyont:potform_615,
-        ceratyont:potform_616,
-        ceratyont:potform_617,
-        ceratyont:potform_618,
-        ceratyont:potform_619,
-        ceratyont:potform_620,
-        ceratyont:potform_621,
-        ceratyont:potform_622,
-        ceratyont:potform_623,
-        ceratyont:potform_624,
-        ceratyont:potform_625,
-        ceratyont:potform_626,
-        ceratyont:potform_627,
-        ceratyont:potform_628,
-        ceratyont:potform_629,
-        ceratyont:potform_63,
-        ceratyont:potform_630,
-        ceratyont:potform_631,
-        ceratyont:potform_632,
-        ceratyont:potform_633,
-        ceratyont:potform_634,
-        ceratyont:potform_635,
-        ceratyont:potform_636,
-        ceratyont:potform_637,
-        ceratyont:potform_638,
-        ceratyont:potform_639,
-        ceratyont:potform_640,
-        ceratyont:potform_641,
-        ceratyont:potform_642,
-        ceratyont:potform_643,
-        ceratyont:potform_644,
-        ceratyont:potform_645,
-        ceratyont:potform_646,
-        ceratyont:potform_647,
-        ceratyont:potform_648,
-        ceratyont:potform_649,
-        ceratyont:potform_65,
-        ceratyont:potform_650,
-        ceratyont:potform_651,
-        ceratyont:potform_652,
-        ceratyont:potform_653,
-        ceratyont:potform_654,
-        ceratyont:potform_655,
-        ceratyont:potform_656,
-        ceratyont:potform_657,
-        ceratyont:potform_658,
-        ceratyont:potform_659,
-        ceratyont:potform_660,
-        ceratyont:potform_661,
-        ceratyont:potform_662,
-        ceratyont:potform_663,
-        ceratyont:potform_664,
-        ceratyont:potform_665,
-        ceratyont:potform_666,
-        ceratyont:potform_667,
-        ceratyont:potform_668,
-        ceratyont:potform_669,
-        ceratyont:potform_67,
-        ceratyont:potform_670,
-        ceratyont:potform_671,
-        ceratyont:potform_672,
-        ceratyont:potform_673,
-        ceratyont:potform_674,
-        ceratyont:potform_675,
-        ceratyont:potform_676,
-        ceratyont:potform_677,
-        ceratyont:potform_678,
-        ceratyont:potform_679,
-        ceratyont:potform_68,
-        ceratyont:potform_680,
-        ceratyont:potform_681,
-        ceratyont:potform_682,
-        ceratyont:potform_683,
-        ceratyont:potform_684,
-        ceratyont:potform_685,
-        ceratyont:potform_686,
-        ceratyont:potform_687,
-        ceratyont:potform_688,
-        ceratyont:potform_689,
-        ceratyont:potform_69,
-        ceratyont:potform_690,
-        ceratyont:potform_691,
-        ceratyont:potform_692,
-        ceratyont:potform_693,
-        ceratyont:potform_694,
-        ceratyont:potform_695,
-        ceratyont:potform_696,
-        ceratyont:potform_697,
-        ceratyont:potform_698,
-        ceratyont:potform_699,
-        ceratyont:potform_7,
-        ceratyont:potform_70,
-        ceratyont:potform_700,
-        ceratyont:potform_701,
-        ceratyont:potform_702,
-        ceratyont:potform_703,
-        ceratyont:potform_704,
-        ceratyont:potform_705,
-        ceratyont:potform_706,
-        ceratyont:potform_707,
-        ceratyont:potform_708,
-        ceratyont:potform_709,
-        ceratyont:potform_710,
-        ceratyont:potform_711,
-        ceratyont:potform_712,
-        ceratyont:potform_713,
-        ceratyont:potform_714,
-        ceratyont:potform_715,
-        ceratyont:potform_716,
-        ceratyont:potform_717,
-        ceratyont:potform_718,
-        ceratyont:potform_719,
-        ceratyont:potform_72,
-        ceratyont:potform_720,
-        ceratyont:potform_721,
-        ceratyont:potform_722,
-        ceratyont:potform_723,
-        ceratyont:potform_724,
-        ceratyont:potform_725,
-        ceratyont:potform_726,
-        ceratyont:potform_727,
-        ceratyont:potform_728,
-        ceratyont:potform_729,
-        ceratyont:potform_73,
-        ceratyont:potform_730,
-        ceratyont:potform_731,
-        ceratyont:potform_732,
-        ceratyont:potform_733,
-        ceratyont:potform_734,
-        ceratyont:potform_735,
-        ceratyont:potform_736,
-        ceratyont:potform_737,
-        ceratyont:potform_738,
-        ceratyont:potform_739,
-        ceratyont:potform_74,
-        ceratyont:potform_740,
-        ceratyont:potform_741,
-        ceratyont:potform_742,
-        ceratyont:potform_743,
-        ceratyont:potform_744,
-        ceratyont:potform_745,
-        ceratyont:potform_746,
-        ceratyont:potform_747,
-        ceratyont:potform_748,
-        ceratyont:potform_749,
-        ceratyont:potform_75,
-        ceratyont:potform_750,
-        ceratyont:potform_751,
-        ceratyont:potform_752,
-        ceratyont:potform_753,
-        ceratyont:potform_754,
-        ceratyont:potform_755,
-        ceratyont:potform_756,
-        ceratyont:potform_757,
-        ceratyont:potform_758,
-        ceratyont:potform_759,
-        ceratyont:potform_76,
-        ceratyont:potform_760,
-        ceratyont:potform_761,
-        ceratyont:potform_762,
-        ceratyont:potform_763,
-        ceratyont:potform_764,
-        ceratyont:potform_765,
-        ceratyont:potform_766,
-        ceratyont:potform_767,
-        ceratyont:potform_768,
-        ceratyont:potform_769,
-        ceratyont:potform_770,
-        ceratyont:potform_771,
-        ceratyont:potform_772,
-        ceratyont:potform_773,
-        ceratyont:potform_774,
-        ceratyont:potform_775,
-        ceratyont:potform_776,
-        ceratyont:potform_777,
-        ceratyont:potform_778,
-        ceratyont:potform_779,
-        ceratyont:potform_780,
-        ceratyont:potform_781,
-        ceratyont:potform_782,
-        ceratyont:potform_783,
-        ceratyont:potform_784,
-        ceratyont:potform_785,
-        ceratyont:potform_786,
-        ceratyont:potform_787,
-        ceratyont:potform_788,
-        ceratyont:potform_789,
-        ceratyont:potform_79,
-        ceratyont:potform_790,
-        ceratyont:potform_791,
-        ceratyont:potform_792,
-        ceratyont:potform_793,
-        ceratyont:potform_794,
-        ceratyont:potform_795,
-        ceratyont:potform_796,
-        ceratyont:potform_797,
-        ceratyont:potform_798,
-        ceratyont:potform_799,
-        ceratyont:potform_8,
-        ceratyont:potform_80,
-        ceratyont:potform_800,
-        ceratyont:potform_801,
-        ceratyont:potform_802,
-        ceratyont:potform_803,
-        ceratyont:potform_804,
-        ceratyont:potform_805,
-        ceratyont:potform_806,
-        ceratyont:potform_807,
-        ceratyont:potform_808,
-        ceratyont:potform_809,
-        ceratyont:potform_81,
-        ceratyont:potform_810,
-        ceratyont:potform_811,
-        ceratyont:potform_812,
-        ceratyont:potform_813,
-        ceratyont:potform_814,
-        ceratyont:potform_815,
-        ceratyont:potform_816,
-        ceratyont:potform_817,
-        ceratyont:potform_818,
-        ceratyont:potform_819,
-        ceratyont:potform_82,
-        ceratyont:potform_820,
-        ceratyont:potform_821,
-        ceratyont:potform_822,
-        ceratyont:potform_823,
-        ceratyont:potform_824,
-        ceratyont:potform_825,
-        ceratyont:potform_826,
-        ceratyont:potform_827,
-        ceratyont:potform_828,
-        ceratyont:potform_829,
-        ceratyont:potform_83,
-        ceratyont:potform_830,
-        ceratyont:potform_831,
-        ceratyont:potform_832,
-        ceratyont:potform_833,
-        ceratyont:potform_834,
-        ceratyont:potform_835,
-        ceratyont:potform_836,
-        ceratyont:potform_837,
-        ceratyont:potform_838,
-        ceratyont:potform_839,
-        ceratyont:potform_84,
-        ceratyont:potform_840,
-        ceratyont:potform_841,
-        ceratyont:potform_842,
-        ceratyont:potform_843,
-        ceratyont:potform_844,
-        ceratyont:potform_845,
-        ceratyont:potform_846,
-        ceratyont:potform_847,
-        ceratyont:potform_848,
-        ceratyont:potform_849,
-        ceratyont:potform_85,
-        ceratyont:potform_850,
-        ceratyont:potform_851,
-        ceratyont:potform_852,
-        ceratyont:potform_853,
-        ceratyont:potform_854,
-        ceratyont:potform_855,
-        ceratyont:potform_856,
-        ceratyont:potform_857,
-        ceratyont:potform_858,
-        ceratyont:potform_859,
-        ceratyont:potform_86,
-        ceratyont:potform_860,
-        ceratyont:potform_861,
-        ceratyont:potform_862,
-        ceratyont:potform_863,
-        ceratyont:potform_864,
-        ceratyont:potform_865,
-        ceratyont:potform_866,
-        ceratyont:potform_867,
-        ceratyont:potform_868,
-        ceratyont:potform_869,
-        ceratyont:potform_870,
-        ceratyont:potform_871,
-        ceratyont:potform_872,
-        ceratyont:potform_873,
-        ceratyont:potform_874,
-        ceratyont:potform_875,
-        ceratyont:potform_876,
-        ceratyont:potform_877,
-        ceratyont:potform_878,
-        ceratyont:potform_879,
-        ceratyont:potform_880,
-        ceratyont:potform_881,
-        ceratyont:potform_882,
-        ceratyont:potform_883,
-        ceratyont:potform_884,
-        ceratyont:potform_885,
-        ceratyont:potform_886,
-        ceratyont:potform_887,
-        ceratyont:potform_888,
-        ceratyont:potform_889,
-        ceratyont:potform_890,
-        ceratyont:potform_891,
-        ceratyont:potform_892,
-        ceratyont:potform_893,
-        ceratyont:potform_894,
-        ceratyont:potform_895,
-        ceratyont:potform_896,
-        ceratyont:potform_897,
-        ceratyont:potform_898,
-        ceratyont:potform_899,
-        ceratyont:potform_9,
-        ceratyont:potform_900,
-        ceratyont:potform_901,
-        ceratyont:potform_902,
-        ceratyont:potform_903,
-        ceratyont:potform_904,
-        ceratyont:potform_905,
-        ceratyont:potform_906,
-        ceratyont:potform_907,
-        ceratyont:potform_908,
-        ceratyont:potform_909,
-        ceratyont:potform_910,
-        ceratyont:potform_911,
-        ceratyont:potform_912,
-        ceratyont:potform_913,
-        ceratyont:potform_914,
-        ceratyont:potform_915,
-        ceratyont:potform_916,
-        ceratyont:potform_917,
-        ceratyont:potform_918,
-        ceratyont:potform_919,
-        ceratyont:potform_920,
-        ceratyont:potform_921,
-        ceratyont:potform_922,
-        ceratyont:potform_923,
-        ceratyont:potform_924,
-        ceratyont:potform_925,
-        ceratyont:potform_926,
-        ceratyont:potform_927,
-        ceratyont:potform_928,
-        ceratyont:potform_929,
-        ceratyont:potform_930,
-        ceratyont:potform_931,
-        ceratyont:potform_932,
-        ceratyont:potform_933,
-        ceratyont:potform_934,
-        ceratyont:potform_935,
-        ceratyont:potform_936,
-        ceratyont:potform_937,
-        ceratyont:potform_938,
-        ceratyont:potform_939,
-        ceratyont:potform_940,
-        ceratyont:potform_941,
-        ceratyont:potform_942,
-        ceratyont:potform_943,
-        ceratyont:potform_944,
-        ceratyont:potform_945,
-        ceratyont:potform_946,
-        ceratyont:potform_947,
-        ceratyont:potform_948,
-        ceratyont:potform_949,
-        ceratyont:potform_950,
-        ceratyont:potform_951,
-        ceratyont:potform_952,
-        ceratyont:potform_953,
-        ceratyont:potform_954,
-        ceratyont:potform_955,
-        ceratyont:potform_956,
-        ceratyont:potform_957,
-        ceratyont:potform_958,
-        ceratyont:potform_959,
-        ceratyont:potform_960,
-        ceratyont:potform_961,
-        ceratyont:potform_962,
-        ceratyont:potform_963,
-        ceratyont:potform_964,
-        ceratyont:potform_965,
-        ceratyont:potform_966,
-        ceratyont:potform_967,
-        ceratyont:potform_968,
-        ceratyont:potform_969,
-        ceratyont:potform_970,
-        ceratyont:potform_971,
-        ceratyont:potform_972,
-        ceratyont:potform_973,
-        ceratyont:potform_974,
-        ceratyont:potform_975,
-        ceratyont:potform_976,
-        ceratyont:potform_977,
-        ceratyont:potform_978,
-        ceratyont:potform_979,
-        ceratyont:potform_980,
-        ceratyont:potform_981,
-        ceratyont:potform_982,
-        ceratyont:potform_983,
-        ceratyont:potform_984,
-        ceratyont:potform_985,
-        ceratyont:potform_986,
-        ceratyont:potform_987,
-        ceratyont:potform_988,
-        ceratyont:potform_989,
-        ceratyont:potform_990,
-        ceratyont:potform_991,
-        ceratyont:potform_992,
-        ceratyont:potform_993,
-        ceratyont:potform_994,
-        ceratyont:potform_995,
-        ceratyont:potform_996,
-        ceratyont:potform_997,
-        ceratyont:potform_998,
-        ceratyont:potform_999 ;
-    skos:prefLabel "Potforms"@en .
-
-ceratyont:collection_publishers a skos:Collection ;
-    rdfs:label "Publishers"@en ;
-    skos:member ceratyont:publisher_4001,
-        ceratyont:publisher_4002,
-        ceratyont:publisher_4003,
-        ceratyont:publisher_4004,
-        ceratyont:publisher_4005,
-        ceratyont:publisher_4006,
-        ceratyont:publisher_4007,
-        ceratyont:publisher_4009,
-        ceratyont:publisher_4010,
-        ceratyont:publisher_4011,
-        ceratyont:publisher_4012,
-        ceratyont:publisher_4013,
-        ceratyont:publisher_4014,
-        ceratyont:publisher_4015,
-        ceratyont:publisher_4016 ;
-    skos:prefLabel "Publishers"@en .
-
-ceratyont:collection_services a skos:Collection ;
-    rdfs:label "Services"@en ;
-    skos:member ceratyont:service_3001,
-        ceratyont:service_3002,
-        ceratyont:service_3003,
-        ceratyont:service_3004,
-        ceratyont:service_3005,
-        ceratyont:service_3006,
-        ceratyont:service_3007,
-        ceratyont:service_3008,
-        ceratyont:service_3009,
-        ceratyont:service_3010 ;
-    skos:prefLabel "Services"@en .
-
-ceratyont:collection_traditions a skos:Collection ;
-    rdfs:label "Traditions"@en ;
-    skos:member ceratyont:tradition_2001,
-        ceratyont:tradition_2002,
-        ceratyont:tradition_2003 ;
-    skos:prefLabel "Traditions"@en .
-
 ceratyont:potform_158 a skos:Concept ;
     rdfs:label "Cup"@en ;
     skos:inScheme ceratyont:scheme ;
@@ -1064,195 +118,195 @@ ceratyont:potform_86 a skos:Concept ;
 
 ceratyont:generic_107901 a skos:Concept ;
     rdfs:label "Bottle"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Bottle"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Bottle"@en .
 
 ceratyont:generic_113058 a skos:Concept ;
     rdfs:label "Inkwell"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Inkwell"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Inkwell"@en .
 
 ceratyont:generic_115126 a skos:Concept ;
     rdfs:label "Cup Decorated"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Cup Decorated"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Cup Decorated"@en .
 
 ceratyont:generic_117509 a skos:Concept ;
     rdfs:label "Bowl Decorated"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Bowl Decorated"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Bowl Decorated"@en .
 
 ceratyont:generic_127029 a skos:Concept ;
     rdfs:label "Cylinder Decorated"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Cylinder Decorated"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Cylinder Decorated"@en .
 
 ceratyont:generic_132166 a skos:Concept ;
     rdfs:label "Modiolus"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Modiolus"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Modiolus"@en .
 
 ceratyont:generic_139864 a skos:Concept ;
     rdfs:label "Jar"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Jar"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Jar"@en .
 
 ceratyont:generic_163272 a skos:Concept ;
     rdfs:label "Kiln equipment"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Kiln equipment"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Kiln equipment"@en .
 
 ceratyont:generic_169715 a skos:Concept ;
     rdfs:label "Poinçon"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Poinçon"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Poinçon"@en .
 
 ceratyont:generic_170645 a skos:Concept ;
     rdfs:label "Pyxis"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Pyxis"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Pyxis"@en .
 
 ceratyont:generic_174619 a skos:Concept ;
     rdfs:label "Dish"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Dish"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Dish"@en .
 
 ceratyont:generic_179407 a skos:Concept ;
     rdfs:label "Bowl Flanged"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Bowl Flanged"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Bowl Flanged"@en .
 
 ceratyont:generic_193689 a skos:Concept ;
     rdfs:label "Chalice"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Chalice"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Chalice"@en .
 
 ceratyont:generic_201167 a skos:Concept ;
     rdfs:label "Unknown"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Unknown"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Unknown"@en .
 
 ceratyont:generic_203267 a skos:Concept ;
     rdfs:label "Patera"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Patera"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Patera"@en .
 
 ceratyont:generic_207560 a skos:Concept ;
     rdfs:label "Beaker Decorated"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Beaker Decorated"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Beaker Decorated"@en .
 
 ceratyont:generic_208844 a skos:Concept ;
     rdfs:label "Lagène"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Lagène"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Lagène"@en .
 
 ceratyont:generic_209365 a skos:Concept ;
     rdfs:label "Beaker"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Beaker"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Beaker"@en .
 
 ceratyont:generic_320733 a skos:Concept ;
     rdfs:label "Bottle Decorated"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Bottle Decorated"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Bottle Decorated"@en .
 
 ceratyont:generic_381941 a skos:Concept ;
     rdfs:label "Platter"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Platter"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Platter"@en .
 
 ceratyont:generic_437165 a skos:Concept ;
     rdfs:label "Dish Rouletted"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Dish Rouletted"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Dish Rouletted"@en .
 
 ceratyont:generic_442476 a skos:Concept ;
     rdfs:label "Mortarium"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Mortarium"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Mortarium"@en .
 
 ceratyont:generic_480718 a skos:Concept ;
     rdfs:label "Platter base"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Platter base"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Platter base"@en .
 
 ceratyont:generic_492739 a skos:Concept ;
     rdfs:label "Rouletted"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Rouletted"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Rouletted"@en .
 
 ceratyont:generic_551917 a skos:Concept ;
     rdfs:label "Lid"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Lid"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Lid"@en .
 
 ceratyont:generic_591889 a skos:Concept ;
     rdfs:label "Cup"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Cup"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Cup"@en .
 
 ceratyont:generic_662716 a skos:Concept ;
     rdfs:label "Cup Rouletted"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Cup Rouletted"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Cup Rouletted"@en .
 
 ceratyont:generic_729940 a skos:Concept ;
     rdfs:label "Chalice Decorated"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Chalice Decorated"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Chalice Decorated"@en .
 
 ceratyont:generic_776552 a skos:Concept ;
     rdfs:label "Bowl"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Bowl"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Bowl"@en .
 
 ceratyont:generic_777121 a skos:Concept ;
     rdfs:label "Varia"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Varia"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Varia"@en .
 
 ceratyont:generic_935796 a skos:Concept ;
     rdfs:label "Decorated"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Decorated"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Decorated"@en .
 
 ceratyont:generic_964607 a skos:Concept ;
     rdfs:label "Flagon Decorated"@en ;
+    skos:broader ceratyont:facet_generic_potforms ;
     skos:inScheme ceratyont:scheme ;
-    skos:prefLabel "Flagon Decorated"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Flagon Decorated"@en .
 
 ceratyont:potform_1 a skos:Concept ;
     rdfs:label "15"@en ;
@@ -6701,143 +5755,154 @@ ceratyont:potform_999 a skos:Concept ;
 
 ceratyont:service_3001 a skos:Concept ;
     rdfs:label "Service I"@en ;
+    skos:broader ceratyont:facet_services ;
     skos:inScheme ceratyont:scheme ;
     skos:note "display color: red"@en ;
-    skos:prefLabel "Service I"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Service I"@en .
 
 ceratyont:service_3002 a skos:Concept ;
     rdfs:label "Service II"@en ;
+    skos:broader ceratyont:facet_services ;
     skos:inScheme ceratyont:scheme ;
     skos:note "display color: orange"@en ;
-    skos:prefLabel "Service II"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Service II"@en .
 
 ceratyont:service_3003 a skos:Concept ;
     rdfs:label "Service A"@en ;
+    skos:broader ceratyont:facet_services ;
     skos:inScheme ceratyont:scheme ;
     skos:note "display color: green"@en ;
-    skos:prefLabel "Service A"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Service A"@en .
 
 ceratyont:service_3004 a skos:Concept ;
     rdfs:label "Service B"@en ;
+    skos:broader ceratyont:facet_services ;
     skos:inScheme ceratyont:scheme ;
     skos:note "display color: purple"@en ;
-    skos:prefLabel "Service B"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Service B"@en .
 
 ceratyont:service_3005 a skos:Concept ;
     rdfs:label "Service C"@en ;
+    skos:broader ceratyont:facet_services ;
     skos:inScheme ceratyont:scheme ;
     skos:note "display color: yellow"@en ;
-    skos:prefLabel "Service C"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Service C"@en .
 
 ceratyont:service_3006 a skos:Concept ;
     rdfs:label "Service D"@en ;
+    skos:broader ceratyont:facet_services ;
     skos:inScheme ceratyont:scheme ;
     skos:note "display color: blue"@en ;
-    skos:prefLabel "Service D"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Service D"@en .
 
 ceratyont:service_3007 a skos:Concept ;
     rdfs:label "Service E"@en ;
+    skos:broader ceratyont:facet_services ;
     skos:inScheme ceratyont:scheme ;
     skos:note "display color: lightblue"@en ;
-    skos:prefLabel "Service E"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Service E"@en .
 
 ceratyont:service_3008 a skos:Concept ;
     rdfs:label "Service F"@en ;
+    skos:broader ceratyont:facet_services ;
     skos:inScheme ceratyont:scheme ;
     skos:note "display color: magenta"@en ;
-    skos:prefLabel "Service F"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Service F"@en .
 
 ceratyont:service_3009 a skos:Concept ;
     rdfs:label "Service III"@en ;
+    skos:broader ceratyont:facet_services ;
     skos:inScheme ceratyont:scheme ;
     skos:note "display color: Gray"@en ;
-    skos:prefLabel "Service III"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Service III"@en .
 
 ceratyont:service_3010 a skos:Concept ;
     rdfs:label "Service IV"@en ;
+    skos:broader ceratyont:facet_services ;
     skos:inScheme ceratyont:scheme ;
     skos:note "display color: orange"@en ;
-    skos:prefLabel "Service IV"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Service IV"@en .
 
 ceratyont:tradition_2001 a skos:Concept ;
     rdfs:label "italian"@en ;
+    skos:broader ceratyont:facet_traditions ;
     skos:inScheme ceratyont:scheme ;
     skos:note "display color: yellow"@en ;
-    skos:prefLabel "italian"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "italian"@en .
 
 ceratyont:tradition_2002 a skos:Concept ;
     rdfs:label "Gaulish-Germanic-Raetian"@en ;
+    skos:broader ceratyont:facet_traditions ;
     skos:inScheme ceratyont:scheme ;
     skos:note "display color: red"@en ;
-    skos:prefLabel "Gaulish-Germanic-Raetian"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Gaulish-Germanic-Raetian"@en .
 
 ceratyont:tradition_2003 a skos:Concept ;
     rdfs:label "African"@en ;
+    skos:broader ceratyont:facet_traditions ;
     skos:inScheme ceratyont:scheme ;
     skos:note "display color: Orange"@en ;
-    skos:prefLabel "African"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "African"@en .
 
 ceratyont:publisher_4001 a skos:Concept ;
     rdfs:label "Bushe-Fox"@en ;
+    skos:broader ceratyont:facet_publishers ;
     skos:inScheme ceratyont:scheme ;
     skos:narrower ceratyont:potform_267 ;
     skos:note "display color: yellow"@en ;
-    skos:prefLabel "Bushe-Fox"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Bushe-Fox"@en .
 
 ceratyont:publisher_4007 a skos:Concept ;
     rdfs:label "Knorr"@en ;
+    skos:broader ceratyont:facet_publishers ;
     skos:inScheme ceratyont:scheme ;
     skos:narrower ceratyont:potform_178 ;
     skos:note "display color: yellow"@en ;
-    skos:prefLabel "Knorr"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Knorr"@en .
 
 ceratyont:publisher_4011 a skos:Concept ;
     rdfs:label "Stanfield"@en ;
+    skos:broader ceratyont:facet_publishers ;
     skos:inScheme ceratyont:scheme ;
     skos:narrower ceratyont:potform_276 ;
     skos:note "display color: yellow"@en ;
-    skos:prefLabel "Stanfield"@en ;
+    skos:prefLabel "Stanfield"@en .
+
+ceratyont:facet_traditions a skos:Concept ;
+    rdfs:label "Traditions"@en ;
+    skos:definition "Facet grouping production traditions of Samian Ware (Italian, Gaulish-Germanic-Raetian, African)."@en ;
+    skos:inScheme ceratyont:scheme ;
+    skos:narrower ceratyont:tradition_2001,
+        ceratyont:tradition_2002,
+        ceratyont:tradition_2003 ;
+    skos:prefLabel "Traditions"@en ;
     skos:topConceptOf ceratyont:scheme .
 
 ceratyont:publisher_4003 a skos:Concept ;
     rdfs:label "Curle"@en ;
+    skos:broader ceratyont:facet_publishers ;
     skos:inScheme ceratyont:scheme ;
     skos:narrower ceratyont:potform_268,
         ceratyont:potform_43,
         ceratyont:potform_44,
         ceratyont:potform_841 ;
     skos:note "display color: yellow"@en ;
-    skos:prefLabel "Curle"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Curle"@en .
 
 ceratyont:publisher_4013 a skos:Concept ;
     rdfs:label "Walters"@en ;
+    skos:broader ceratyont:facet_publishers ;
     skos:inScheme ceratyont:scheme ;
     skos:narrower ceratyont:potform_79,
         ceratyont:potform_80,
         ceratyont:potform_81,
         ceratyont:potform_82 ;
     skos:note "display color: yellow"@en ;
-    skos:prefLabel "Walters"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Walters"@en .
 
 ceratyont:publisher_4006 a skos:Concept ;
     rdfs:label "Hermet"@en ;
+    skos:broader ceratyont:facet_publishers ;
     skos:inScheme ceratyont:scheme ;
     skos:narrower ceratyont:potform_174,
         ceratyont:potform_175,
@@ -6846,11 +5911,11 @@ ceratyont:publisher_4006 a skos:Concept ;
         ceratyont:potform_48,
         ceratyont:potform_49 ;
     skos:note "display color: yellow"@en ;
-    skos:prefLabel "Hermet"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Hermet"@en .
 
 ceratyont:publisher_4004 a skos:Concept ;
     rdfs:label "Déchelette"@en ;
+    skos:broader ceratyont:facet_publishers ;
     skos:inScheme ceratyont:scheme ;
     skos:narrower ceratyont:potform_258,
         ceratyont:potform_259,
@@ -6862,11 +5927,11 @@ ceratyont:publisher_4004 a skos:Concept ;
         ceratyont:potform_46,
         ceratyont:potform_842 ;
     skos:note "display color: yellow"@en ;
-    skos:prefLabel "Déchelette"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Déchelette"@en .
 
 ceratyont:publisher_4010 a skos:Concept ;
     rdfs:label "Ritterling"@en ;
+    skos:broader ceratyont:facet_publishers ;
     skos:inScheme ceratyont:scheme ;
     skos:narrower ceratyont:potform_184,
         ceratyont:potform_602,
@@ -6878,11 +5943,50 @@ ceratyont:publisher_4010 a skos:Concept ;
         ceratyont:potform_83,
         ceratyont:potform_840 ;
     skos:note "display color: yellow"@en ;
-    skos:prefLabel "Ritterling"@en ;
+    skos:prefLabel "Ritterling"@en .
+
+ceratyont:facet_services a skos:Concept ;
+    rdfs:label "Services"@en ;
+    skos:definition "Facet grouping Samian Ware tableware services (Service I, II, A, B, C, …)."@en ;
+    skos:inScheme ceratyont:scheme ;
+    skos:narrower ceratyont:service_3001,
+        ceratyont:service_3002,
+        ceratyont:service_3003,
+        ceratyont:service_3004,
+        ceratyont:service_3005,
+        ceratyont:service_3006,
+        ceratyont:service_3007,
+        ceratyont:service_3008,
+        ceratyont:service_3009,
+        ceratyont:service_3010 ;
+    skos:prefLabel "Services"@en ;
+    skos:topConceptOf ceratyont:scheme .
+
+ceratyont:facet_publishers a skos:Concept ;
+    rdfs:label "Publishers"@en ;
+    skos:definition "Facet grouping the typology publishers (Dragendorff, Conspectus, Curle, …). Each publisher has its specific potforms as narrower concepts."@en ;
+    skos:inScheme ceratyont:scheme ;
+    skos:narrower ceratyont:publisher_4001,
+        ceratyont:publisher_4002,
+        ceratyont:publisher_4003,
+        ceratyont:publisher_4004,
+        ceratyont:publisher_4005,
+        ceratyont:publisher_4006,
+        ceratyont:publisher_4007,
+        ceratyont:publisher_4009,
+        ceratyont:publisher_4010,
+        ceratyont:publisher_4011,
+        ceratyont:publisher_4012,
+        ceratyont:publisher_4013,
+        ceratyont:publisher_4014,
+        ceratyont:publisher_4015,
+        ceratyont:publisher_4016 ;
+    skos:prefLabel "Publishers"@en ;
     skos:topConceptOf ceratyont:scheme .
 
 ceratyont:publisher_4012 a skos:Concept ;
     rdfs:label "Vernhet"@en ;
+    skos:broader ceratyont:facet_publishers ;
     skos:inScheme ceratyont:scheme ;
     skos:narrower ceratyont:potform_180,
         ceratyont:potform_181,
@@ -6906,11 +6010,11 @@ ceratyont:publisher_4012 a skos:Concept ;
         ceratyont:potform_619,
         ceratyont:potform_620 ;
     skos:note "display color: yellow"@en ;
-    skos:prefLabel "Vernhet"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Vernhet"@en .
 
 ceratyont:publisher_4015 a skos:Concept ;
     rdfs:label "Loeschke"@en ;
+    skos:broader ceratyont:facet_publishers ;
     skos:inScheme ceratyont:scheme ;
     skos:narrower ceratyont:potform_195,
         ceratyont:potform_273,
@@ -6938,11 +6042,11 @@ ceratyont:publisher_4015 a skos:Concept ;
         ceratyont:potform_846,
         ceratyont:potform_847 ;
     skos:note "display color: yellow"@en ;
-    skos:prefLabel "Loeschke"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Loeschke"@en .
 
 ceratyont:publisher_4009 a skos:Concept ;
     rdfs:label "Ludowici"@en ;
+    skos:broader ceratyont:facet_publishers ;
     skos:inScheme ceratyont:scheme ;
     skos:narrower ceratyont:potform_185,
         ceratyont:potform_186,
@@ -6973,11 +6077,50 @@ ceratyont:publisher_4009 a skos:Concept ;
         ceratyont:potform_69,
         ceratyont:potform_70 ;
     skos:note "display color: yellow"@en ;
-    skos:prefLabel "Ludowici"@en ;
+    skos:prefLabel "Ludowici"@en .
+
+ceratyont:facet_generic_potforms a skos:Concept ;
+    rdfs:label "Generic Potforms"@en ;
+    skos:definition "Facet grouping all generic pottery form categories (e.g. Bowl, Cup, Dish)."@en ;
+    skos:inScheme ceratyont:scheme ;
+    skos:narrower ceratyont:generic_107901,
+        ceratyont:generic_113058,
+        ceratyont:generic_115126,
+        ceratyont:generic_117509,
+        ceratyont:generic_127029,
+        ceratyont:generic_132166,
+        ceratyont:generic_139864,
+        ceratyont:generic_163272,
+        ceratyont:generic_169715,
+        ceratyont:generic_170645,
+        ceratyont:generic_174619,
+        ceratyont:generic_179407,
+        ceratyont:generic_193689,
+        ceratyont:generic_201167,
+        ceratyont:generic_203267,
+        ceratyont:generic_207560,
+        ceratyont:generic_208844,
+        ceratyont:generic_209365,
+        ceratyont:generic_320733,
+        ceratyont:generic_381941,
+        ceratyont:generic_437165,
+        ceratyont:generic_442476,
+        ceratyont:generic_480718,
+        ceratyont:generic_492739,
+        ceratyont:generic_551917,
+        ceratyont:generic_591889,
+        ceratyont:generic_662716,
+        ceratyont:generic_729940,
+        ceratyont:generic_776552,
+        ceratyont:generic_777121,
+        ceratyont:generic_935796,
+        ceratyont:generic_964607 ;
+    skos:prefLabel "Generic Potforms"@en ;
     skos:topConceptOf ceratyont:scheme .
 
 ceratyont:publisher_4005 a skos:Concept ;
     rdfs:label "Dragendorff"@en ;
+    skos:broader ceratyont:facet_publishers ;
     skos:inScheme ceratyont:scheme ;
     skos:narrower ceratyont:potform_1,
         ceratyont:potform_11,
@@ -7037,11 +6180,11 @@ ceratyont:publisher_4005 a skos:Concept ;
         ceratyont:potform_823,
         ceratyont:potform_9 ;
     skos:note "display color: yellow"@en ;
-    skos:prefLabel "Dragendorff"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Dragendorff"@en .
 
 ceratyont:publisher_4016 a skos:Concept ;
     rdfs:label "Hayes"@en ;
+    skos:broader ceratyont:facet_publishers ;
     skos:inScheme ceratyont:scheme ;
     skos:narrower ceratyont:potform_1000,
         ceratyont:potform_1001,
@@ -7218,11 +6361,11 @@ ceratyont:publisher_4016 a skos:Concept ;
         ceratyont:potform_998,
         ceratyont:potform_999 ;
     skos:note "display color: yellow"@en ;
-    skos:prefLabel "Hayes"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Hayes"@en .
 
 ceratyont:publisher_4014 a skos:Concept ;
     rdfs:label "Bet"@en ;
+    skos:broader ceratyont:facet_publishers ;
     skos:inScheme ceratyont:scheme ;
     skos:narrower ceratyont:potform_621,
         ceratyont:potform_622,
@@ -7425,11 +6568,11 @@ ceratyont:publisher_4014 a skos:Concept ;
         ceratyont:potform_819,
         ceratyont:potform_820 ;
     skos:note "display color: yellow"@en ;
-    skos:prefLabel "Bet"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Bet"@en .
 
 ceratyont:publisher_4002 a skos:Concept ;
     rdfs:label "Conspectus"@en ;
+    skos:broader ceratyont:facet_publishers ;
     skos:inScheme ceratyont:scheme ;
     skos:narrower ceratyont:potform_279,
         ceratyont:potform_280,
@@ -7742,8 +6885,7 @@ ceratyont:publisher_4002 a skos:Concept ;
         ceratyont:potform_596,
         ceratyont:potform_597 ;
     skos:note "display color: yellow"@en ;
-    skos:prefLabel "Conspectus"@en ;
-    skos:topConceptOf ceratyont:scheme .
+    skos:prefLabel "Conspectus"@en .
 
 ceratyont:scheme a skos:ConceptScheme ;
     dct:contributor "Allard Mees" ;
@@ -7755,65 +6897,9 @@ ceratyont:scheme a skos:ConceptScheme ;
     dct:rights "CC BY 4.0" ;
     dct:title "CeraTyOnt Terminology"@en ;
     vann:preferredNamespaceUri "http://www.w3id.org/archlink/terms/ceratyont-terminology/"^^xsd:string ;
-    skos:hasTopConcept ceratyont:generic_107901,
-        ceratyont:generic_113058,
-        ceratyont:generic_115126,
-        ceratyont:generic_117509,
-        ceratyont:generic_127029,
-        ceratyont:generic_132166,
-        ceratyont:generic_139864,
-        ceratyont:generic_163272,
-        ceratyont:generic_169715,
-        ceratyont:generic_170645,
-        ceratyont:generic_174619,
-        ceratyont:generic_179407,
-        ceratyont:generic_193689,
-        ceratyont:generic_201167,
-        ceratyont:generic_203267,
-        ceratyont:generic_207560,
-        ceratyont:generic_208844,
-        ceratyont:generic_209365,
-        ceratyont:generic_320733,
-        ceratyont:generic_381941,
-        ceratyont:generic_437165,
-        ceratyont:generic_442476,
-        ceratyont:generic_480718,
-        ceratyont:generic_492739,
-        ceratyont:generic_551917,
-        ceratyont:generic_591889,
-        ceratyont:generic_662716,
-        ceratyont:generic_729940,
-        ceratyont:generic_776552,
-        ceratyont:generic_777121,
-        ceratyont:generic_935796,
-        ceratyont:generic_964607,
-        ceratyont:publisher_4001,
-        ceratyont:publisher_4002,
-        ceratyont:publisher_4003,
-        ceratyont:publisher_4004,
-        ceratyont:publisher_4005,
-        ceratyont:publisher_4006,
-        ceratyont:publisher_4007,
-        ceratyont:publisher_4009,
-        ceratyont:publisher_4010,
-        ceratyont:publisher_4011,
-        ceratyont:publisher_4012,
-        ceratyont:publisher_4013,
-        ceratyont:publisher_4014,
-        ceratyont:publisher_4015,
-        ceratyont:publisher_4016,
-        ceratyont:service_3001,
-        ceratyont:service_3002,
-        ceratyont:service_3003,
-        ceratyont:service_3004,
-        ceratyont:service_3005,
-        ceratyont:service_3006,
-        ceratyont:service_3007,
-        ceratyont:service_3008,
-        ceratyont:service_3009,
-        ceratyont:service_3010,
-        ceratyont:tradition_2001,
-        ceratyont:tradition_2002,
-        ceratyont:tradition_2003 ;
+    skos:hasTopConcept ceratyont:facet_generic_potforms,
+        ceratyont:facet_publishers,
+        ceratyont:facet_services,
+        ceratyont:facet_traditions ;
     skos:prefLabel "CeraTyOnt Terminology"@en .
 

@@ -54,23 +54,27 @@ iri_prefixes:
   publisher: "publisher_"
   potform:   "potform_"
 
-# --- Collection (facet) definitions ---
-collections:
+# --- Facet concepts (skos:Concept acting as a branch root) ---
+# Each facet concept is a top-concept of the scheme. All members of that class
+# become its narrower concepts (via skos:broader on the member side).
+# This creates a real tree browseable in any SKOS viewer.
+facets:
   generic:
-    local_name: "collection_generic_potforms"
+    local_name: "facet_generic_potforms"
     label:      "Generic Potforms"
+    definition: "Facet grouping all generic pottery form categories (e.g. Bowl, Cup, Dish)."
   tradition:
-    local_name: "collection_traditions"
+    local_name: "facet_traditions"
     label:      "Traditions"
+    definition: "Facet grouping production traditions of Samian Ware (Italian, Gaulish-Germanic-Raetian, African)."
   service:
-    local_name: "collection_services"
+    local_name: "facet_services"
     label:      "Services"
+    definition: "Facet grouping Samian Ware tableware services (Service I, II, A, B, C, …)."
   publisher:
-    local_name: "collection_publishers"
+    local_name: "facet_publishers"
     label:      "Publishers"
-  potform:
-    local_name: "collection_potforms"
-    label:      "Potforms"
+    definition: "Facet grouping the typology publishers (Dragendorff, Conspectus, Curle, …). Each publisher has its specific potforms as narrower concepts."
 
 # --- Handling of sentinel values in CSV ---
 null_markers:

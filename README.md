@@ -71,11 +71,27 @@ That's it — one command builds the Turtle and validates it.
 
 ### `output/ceratyont_skos.ttl`
 The generated SKOS terminology in Turtle. Contents after a successful build:
+
 - 1 `skos:ConceptScheme`
-- 926 `skos:Concept` (32 Generic + 3 Tradition + 10 Service + 15 Publisher + 866 Potforms)
-- 5 `skos:Collection` (one facet per class)
-- 850 `skos:broader` edges (Potform → Publisher)
-- 359 `foaf:depiction` statements (image URLs)
+- **4 facet concepts as top-concepts of the scheme** (`Generic Potforms`,
+  `Traditions`, `Services`, `Publishers`) — each acts as the root of its
+  own branch
+- 60 member `skos:Concept`s attached to their facet via
+  `skos:broader` / `skos:narrower` (32 Generic + 3 Tradition + 10 Service + 15 Publisher)
+- 866 Potform `skos:Concept`s attached to their specific Publisher via
+  `skos:broader`, so the full hierarchy path is
+  *Publishers facet → Dragendorff → potform_1 …*
+- 910 `skos:broader` edges, 359 `foaf:depiction` statements
+
+16 potforms have `publisher = NULL` in the source data — they are still
+included as concepts in the scheme, but sit outside the facet hierarchy
+(no `skos:broader`) and carry a `skos:note` explaining the missing link.
+
+> **Note:** `skos:Collection` objects were intentionally omitted. SKOS viewers
+> like [SKOS-Play](https://skos-play.sparna.fr/) render Collections as
+> separate branches parallel to top-concepts, which would duplicate the
+> facet tree visually. The facet-concept hierarchy alone provides the same
+> grouping without this redundancy.
 
 ### `output/validation_report.md` — **start here**
 Human-readable Markdown summary with:
@@ -101,6 +117,35 @@ Example snippet from a report with issues:
 Full machine-readable SHACL `sh:ValidationReport` graph. Use this if you want
 to process the report programmatically or in SHACL-aware tooling.
 
+## Hierarchy structure
+
+```
+ConceptScheme: ceratyont-terminology
+│
+├── [Top] Generic Potforms (facet)
+│         └── Bottle, Bowl, Cup, Dish, … (32 concepts)
+│
+├── [Top] Traditions (facet)
+│         └── italian, Gaulish-Germanic-Raetian, African
+│
+├── [Top] Services (facet)
+│         └── Service I, II, A, B, C, D, E, F, III, IV
+│
+└── [Top] Publishers (facet)
+          └── Dragendorff
+          │     └── potform_1 (Dragendorff 15), potform_2 (15/17), … (57 forms)
+          ├── Conspectus
+          │     └── … specific potforms …
+          ├── Curle, Déchelette, Hermet, Knorr, …
+          └── (15 publishers total, 850 potforms attached)
+```
+
+Potforms live entirely under their respective publishers — no separate
+"Potforms" facet, since the Publisher branch already groups them. The 16
+potforms with `publisher = NULL` in the source data sit in the scheme
+without a `skos:broader`; each carries a `skos:note` explaining the missing
+link.
+
 ## SHACL shapes
 
 Two shape graphs are loaded and evaluated together (configured in
@@ -121,7 +166,9 @@ Project-specific additions:
 - `foaf:depiction` must be an IRI, not a literal.
 - `skos:broader`/`skos:narrower` targets must be `skos:Concept`s.
 - A concept may not be its own `skos:broader` (no reflexive hierarchy).
-- Collections must have at least one member.
+- `skos:Collection` objects (if any are ever added) must have at least one
+  member. Currently unused because Collections are intentionally omitted
+  from the model, but the constraint remains active as a safety net.
 
 ### Fixes applied to the SkoHub SHACL file
 The upstream `skohub_shacl.ttl` had four small Turtle-syntax typos
@@ -146,7 +193,7 @@ Everything tweakable lives in `py/config.yaml` — no Python edits needed:
 - Image base URL (used for `foaf:depiction`)
 - CSV column names (if schema evolves)
 - IRI prefixes (e.g. `potform_` → `pf_`)
-- Collection local names and labels
+- **Facet concept** local names, labels, and definitions (under `facets:`)
 - List of SHACL shape files (add more as needed — they're merged into one graph)
 - Concept-scheme metadata (title, description, license, preferred namespace URI)
 
