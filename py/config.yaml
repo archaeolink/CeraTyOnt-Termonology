@@ -12,6 +12,8 @@ namespaces:
   # LADO (Linked Archaeological Data Ontology) — for feature-similarity sub-properties
   # of skos:related (hasSameRim / Footring / Roulette / Groove / Flute).
   lado_uri: "http://www.w3id.org/lado/"
+  # CeraTyOnt ontology IRI — used for rdfs:seeAlso from the scheme
+  ceratyont_ontology_uri: "https://raw.githubusercontent.com/archaeolink/CeraTyOnt/main/ceratyont.owl"
 
 # --- Language tag for all labels ---
 language: "en"
@@ -140,6 +142,38 @@ facets:
     label:      "Publishers"
     definition: "Facet grouping the typology publishers (Dragendorff, Conspectus, Curle, …). Each publisher has its specific potforms as narrower concepts."
 
+# --- Concept-level metadata ---
+# Applied to every skos:Concept in the scheme (members and facet concepts).
+concept_metadata:
+  # Creator is modelled as a foaf:Person with ORCID IRI.
+  # The IRI is used as the dct:creator value; the Person is described once at
+  # scheme-level so tools can resolve the name + ORCID from a single creator link.
+  creator_iri: "https://orcid.org/0000-0002-7634-5342"
+  creator_name: "Allard Mees"
+  # If true, dct:created on each concept comes from the mtime of its source CSV.
+  # If false, falls back to the scheme's dct:created.
+  use_csv_mtime_for_created: true
+
+# --- Generic definition templates for member concepts ---
+# Placeholders: {label} = the concept's prefLabel.
+# Used to fill skos:definition on each concept kind. Leave a key empty to skip.
+definition_templates:
+  generic:   "Generic potform category: {label}."
+  tradition: "Production tradition of Samian Ware: {label}."
+  service:   "Samian Ware tableware service: {label}."
+  publisher: "Publisher / typology author: {label}. Defines a set of named potforms."
+  potform:   "Potform type {label} as defined by its publisher."
+
+# --- Generic scopeNote templates (usage / applicability guidance) ---
+# skos:scopeNote is distinct from skos:definition: it describes when/how to use
+# the concept, not what it is. Placeholder: {label}.
+scope_note_templates:
+  generic:   "Use to classify vessels by their general shape category. For publisher-specific type numbers, use the corresponding Potform concept instead."
+  tradition: "Use to indicate the production tradition a vessel or typology belongs to. Applies to both Potforms and Services."
+  service:   "Use to group Potforms that form a matching set of tableware items (plates, cups, bowls) from the same production tradition."
+  publisher: "Use to attribute a Potform to the scholar or reference work that originally defined it. Potforms appear as narrower concepts under their Publisher."
+  potform:   "Use for the specific potform type {label} as originally defined by its Publisher. Links to generic form, tradition and services are provided via skos:broader / skos:related."
+
 # --- Handling of sentinel values in CSV ---
 null_markers:
   - "NULL"
@@ -171,6 +205,25 @@ scheme:
   contributor: "Allard Mees"
   publisher: "RGZM"
   rights: "CC BY 4.0"
-  license: "https://creativecommons.org/licenses/by/4.0/"   # must be IRI
+  license: "https://creativecommons.org/licenses/by/4.0/"
   preferred_namespace_uri: "http://www.w3id.org/archlink/terms/ceratyont-terminology/"
-  version: "0.1"
+  preferred_namespace_prefix: "ceratyont"
+  version: "0.1.0"
+  # ISO-8601 dates (YYYY-MM-DD). Leave created/issued fixed; modified is auto-updated at build time.
+  created: "2026-04-22"      # when this SKOS terminology was first generated
+  issued:  "2026-04-22"      # when it was first published — update on release
+  # Canonical source ontology the terminology is derived from
+  source_ontology: "https://raw.githubusercontent.com/archaeolink/CeraTyOnt/main/ceratyont.owl"
+
+# --- Build behaviour ---
+build:
+  # Auto-flip "suspicious" Generic→Generic edges where the from-label is a prefix
+  # of the to-label (e.g. "Cup → Cup Rouletted" becomes "Cup Rouletted → Cup").
+  # A skos:historyNote is added to the flipped concept.
+  auto_flip_suspicious_generic_edges: true
+  # Safety net — abort the build if more than this many flips would be made.
+  # Protects you in case the source data changes in a way that breaks the heuristic.
+  auto_flip_max: 5
+  # Emit skos:notation and skos:altLabel ("<publisher-abbreviation> <form-label>")
+  # on Potform concepts. Abbreviations come from py/abbreviations.py.
+  emit_potform_notation: true

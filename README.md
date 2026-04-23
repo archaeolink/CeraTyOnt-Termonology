@@ -72,22 +72,49 @@ That's it — one command builds the Turtle and validates it.
 ### `output/ceratyont_skos.ttl`
 The generated SKOS terminology in Turtle. Contents after a successful build:
 
-- 1 `skos:ConceptScheme`
+- 1 `skos:ConceptScheme` with full publication metadata:
+  `dct:title`, `dct:description`, `dct:creator` (ORCID IRI), `dct:contributor`,
+  `dct:publisher`, `dct:license` (IRI), `dct:rights`, `dct:created`,
+  `dct:issued`, `dct:modified` (auto-updated to build date),
+  `dct:hasVersion`, `owl:versionInfo`, `dct:source`, `prov:wasDerivedFrom`,
+  `rdfs:seeAlso` (linking back to the CeraTyOnt OWL ontology), plus
+  `vann:preferredNamespaceUri` and `vann:preferredNamespacePrefix`
+- The creator is modelled **once** as a `foaf:Person` with an ORCID IRI,
+  and all `dct:creator` links throughout the graph point to that same IRI —
+  so tools can resolve the creator's name from a single dereferencable URL
 - **4 facet concepts as top-concepts of the scheme** (`Generic Potforms`,
   `Traditions`, `Services`, `Publishers`) — each acts as the root of its
-  own branch
+  own branch and has a `skos:definition`
 - 60 member `skos:Concept`s attached to their facet via
-  `skos:broader` / `skos:narrower` (32 Generic + 3 Tradition + 10 Service + 15 Publisher)
+  `skos:broader` / `skos:narrower` (32 Generic + 3 Tradition + 10 Service + 15 Publisher),
+  each with a `skos:definition` from a configurable template
 - 866 Potform `skos:Concept`s, each attached to its Publisher, GenericPotform,
-  and Tradition via `skos:broader` (multi-parent hierarchy), giving you
-  four browseable axes: *by publisher, by form, by tradition, by service*
+  and Tradition via `skos:broader` (multi-parent hierarchy), giving four
+  browseable axes: *by publisher, by form, by tradition, by service*
+- **Every concept** (facets, members, potforms) carries:
+  - `dct:creator` — the ORCID IRI of Allard Mees
+  - `dct:created` — the last-modified timestamp of its source CSV
+    (so the Potforms' created date is inherited from
+    `v_ceratyont_potforms_distinct.csv`'s mtime, Publishers from
+    `tbllookuppublisher.csv`, etc.)
+  - `skos:scopeNote` — generic usage guidance from a configurable template
+    (distinct from `skos:definition`: the scopeNote explains *when to use*
+    the concept, while the definition explains *what it is*)
+- Every known-publisher Potform gets a `skos:notation` of the form
+  `"<PublisherAbbrev> <FormLabel>"` (e.g. `"Drag. 15"`), plus — if that
+  notation differs from the prefLabel — a matching `skos:altLabel`.
+  Abbreviations are managed in `py/abbreviations.py` (not a CSV).
 - Cross-potform relations from the connections CSV:
   - `skos:exactMatch` for *"is same form as"* pairs (symmetric)
   - `skos:related` for *"has service member"* pairs (symmetric)
   - `skos:related` + `lado:hasSame{Rim,Footring,Roulette,Groove,Flute}`
     for feature-similarity relations (both directions)
-- Roughly: 2600 `skos:broader` edges, 390 `skos:related` edges,
-  180 `skos:exactMatch` edges, 359 `foaf:depiction` statements
+- Auto-flip of suspicious Generic→Generic edges with `skos:historyNote`
+  documenting the change (controlled via `build.auto_flip_*` in `config.yaml`)
+
+Approximate totals for the current source data: ~15000 triples, 2625 `skos:broader`,
+390 `skos:related`, 182 `skos:exactMatch`, 930 `skos:definition`, 930 `skos:scopeNote`,
+850 `skos:notation`, 120 `skos:altLabel`, 359 `foaf:depiction`.
 
 The 16 potforms with `publisher = NULL` in the source data are still
 included as concepts in the scheme but sit outside the facet hierarchy.
@@ -230,6 +257,49 @@ These are informational — the build still succeeds, and SHACL validation
 runs regardless. Review the Markdown report to decide if the source data
 needs correcting.
 
+## Publisher abbreviations (`py/abbreviations.py`)
+
+Abbreviations used in `skos:notation` and `skos:altLabel` live in a Python
+module, not a CSV — this keeps them versioned together with the code and
+avoids an extra editable file per environment.
+
+Each entry is tagged with a comment:
+
+- **`# CONFIRMED`** — the abbreviation matches the actual label prefix in
+  the source data (e.g. `Conspectus` → `Consp.` because all 310 Conspectus
+  labels in the source already start with `"Consp."`)
+- **`# GUESSED`** — Claude's best guess from archaeological literature. These
+  affect potforms whose labels are bare numbers. Review and correct in place.
+
+To change an abbreviation: edit `PUBLISHER_ABBREVIATIONS` in
+`py/abbreviations.py` and rebuild. Flipping `# GUESSED` → `# CONFIRMED`
+when you verify a value is encouraged.
+
+The build is smart about duplicates: if a potform's `prefLabel` already
+starts with the abbreviation (or the full publisher name), no extra
+`skos:altLabel` is emitted — just a `skos:notation` equal to the label.
+
+## Auto-flip of suspicious Generic→Generic edges
+
+Some edges in `v_ceratyont_connections.csv` of type *"has generic form"*
+go between two generic concepts (e.g. `Cup Decorated → Cup`) to express a
+sub-categorisation. A handful look reversed in the source — for instance
+`Cup → Cup Rouletted`, where the *from* label (`Cup`) is more generic than
+the *to* label (`Cup Rouletted`), suggesting the edge direction is wrong.
+
+`run.py` detects these with a simple heuristic (*"the from-label is a
+prefix of the to-label"*) and either:
+
+- **flips them** (default) — emitting `Cup Rouletted → skos:broader → Cup`
+  with a `skos:historyNote` on the flipped concept documenting the change, or
+- **flags them** — if you set `build.auto_flip_suspicious_generic_edges: false`
+  in `config.yaml`, they stay as-is and are listed in the Markdown report
+  for manual review.
+
+A safety limit (`build.auto_flip_max`, default **5**) aborts the build if
+the heuristic would suddenly match too many edges — protects you from
+silent schema damage if the source data shape changes.
+
 ## Handling of NULL values
 
 - `publisher = "NULL"` in `v_ceratyont_potforms_distinct.csv` → no
@@ -243,14 +313,21 @@ needs correcting.
 
 Everything tweakable lives in `py/config.yaml` — no Python edits needed:
 
-- Base URI and scheme IRI
+- Base URI, scheme IRI, image base URL
 - Language tag
-- Image base URL (used for `foaf:depiction`)
 - CSV column names (if schema evolves)
 - IRI prefixes (e.g. `potform_` → `pf_`)
 - **Facet concept** local names, labels, and definitions (under `facets:`)
-- List of SHACL shape files (add more as needed — they're merged into one graph)
-- Concept-scheme metadata (title, description, license, preferred namespace URI)
+- **`concept_metadata:`** — creator IRI (ORCID) + name for every concept,
+  and whether to derive `dct:created` from CSV mtimes
+- **`definition_templates:`** — per-kind placeholder templates for
+  `skos:definition` (uses `{label}` as placeholder)
+- **`scope_note_templates:`** — per-kind templates for `skos:scopeNote`,
+  describing *when to use* each kind of concept (as opposed to *what it is*)
+- **`build:`** — auto-flip behaviour, notation toggle, safety limits
+- List of SHACL shape files (merged into one graph before validation)
+- Concept-scheme metadata (title, description, license, dates, version,
+  preferred namespace URI + prefix, source ontology link)
 
 ## Dependencies
 

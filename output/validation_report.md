@@ -1,6 +1,6 @@
 # SHACL Validation Report
 
-*Generated: 2026-04-23 07:42 UTC*
+*Generated: 2026-04-23 08:32 UTC*
 
 ## Inputs
 
@@ -11,7 +11,7 @@
 
 ## Data graph statistics
 
-- Total triples: **10208**
+- Total triples: **14907**
 - skos:ConceptScheme: **1**
 - skos:Concept: **930**
 - skos:Collection: **0**
@@ -19,6 +19,10 @@
 - skos:broader edges: **2625**
 - skos:related edges: **390**
 - skos:exactMatch edges: **182**
+- skos:definition statements: **930**
+- skos:altLabel statements: **120**
+- skos:notation statements: **850**
+- skos:historyNote statements: **1**
 
 ## Connections applied
 
@@ -37,7 +41,7 @@
 ### Issues found during connection import
 
 - **2** row(s) could not be resolved (ID not in lookup tables or wrong class).
-- **1** Generic→Generic `skos:broader` edges look possibly reversed (the *from* label is a prefix of the *to* label).
+- **1** Generic→Generic edge(s) were **auto-flipped** because the *from* label looked more generic than the *to* label (see next section).
 
 #### Unresolved connections (first 20)
 
@@ -46,13 +50,13 @@
 | `has generic form` | `544` | `381941` | from-id not in ['potform', 'generic'] |
 | `has tradition` | `544` | `2002` | from-id not in ['potform', 'service'] |
 
-#### Possibly reversed Generic→Generic edges
+#### Auto-flipped Generic→Generic edges
 
-These edges go `from → skos:broader → to`, but the *from* label looks more specific than the *to* label. Review and flip in the source data if needed.
+These edges were in the source data as `from → skos:broader → to`, but the *from* label looked more generic than the *to* label, so the edge was flipped on build. Each flipped concept carries a `skos:historyNote` documenting the change.
 
-| From (now broader of To) | To |
+| Original (source CSV) | Emitted (flipped) |
 |---|---|
-| Cup | Cup Rouletted |
+| `Cup` → `Cup Rouletted` | `Cup Rouletted` → `Cup` |
 
 ## Overall result
 
