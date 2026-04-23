@@ -86,6 +86,7 @@ class SkosBuilder:
         self.BASE = Namespace(cfg["namespaces"]["base_uri"])
         self.SCHEME = URIRef(cfg["namespaces"]["scheme_iri"])
         self.IMG_BASE = cfg["namespaces"]["image_base_url"]
+        self.LADO = Namespace(cfg["namespaces"]["lado_uri"])
 
         self.graph = Graph()
         self.graph.bind("skos", SKOS)
@@ -95,11 +96,15 @@ class SkosBuilder:
         self.graph.bind("rdfs", RDFS)
         self.graph.bind("xsd", XSD)
         self.graph.bind("vann", VANN)
+        self.graph.bind("lado", self.LADO)
         self.graph.bind("ceratyont", self.BASE)
 
         self.publisher_by_label: dict[str, URIRef] = {}
         # populated in build_facets(); each kind → its facet-concept IRI
         self.facet_by_kind: dict[str, URIRef] = {}
+        # populated as each class is built; (kind, id) → concept IRI
+        # Used by build_connections() to resolve from_id/to_id from the edge CSV.
+        self.id_index: dict[tuple[str, str], URIRef] = {}
 
     def concept_iri(self, kind: str, identifier: str) -> URIRef:
         return URIRef(f"{self.BASE}{self.cfg['iri_prefixes'][kind]}{identifier}")
@@ -166,6 +171,7 @@ class SkosBuilder:
             ident = str(row[id_col]).strip()
             label = str(row[label_col]).strip()
             concept = self.concept_iri(kind, ident)
+            self.id_index[(kind, ident)] = concept
 
             self.graph.add((concept, RDF.type, SKOS.Concept))
             self.graph.add((concept, SKOS.inScheme, self.SCHEME))
@@ -208,6 +214,7 @@ class SkosBuilder:
             ident = str(row[id_col]).strip()
             label = str(row[label_col]).strip()
             concept = self.concept_iri("potform", ident)
+            self.id_index[("potform", ident)] = concept
 
             self.graph.add((concept, RDF.type, SKOS.Concept))
             self.graph.add((concept, SKOS.inScheme, self.SCHEME))
@@ -252,6 +259,141 @@ class SkosBuilder:
         log.info("  built %d potform concepts", len(built))
         return built
 
+    # ------------------------------------------------------------------
+    # Connections / cross-class relations from v_ceratyont_connections.csv
+    # ------------------------------------------------------------------
+
+    # Map RDF property strings from config to actual URIRefs
+    _PROPERTY_MAP = {
+        "skos:broader":    SKOS.broader,
+        "skos:narrower":   SKOS.narrower,
+        "skos:related":    SKOS.related,
+        "skos:exactMatch": SKOS.exactMatch,
+        "skos:closeMatch": SKOS.closeMatch,
+        "skos:member":     SKOS.member,
+    }
+
+    # Which SKOS properties are symmetric (emit in both directions)?
+    _SYMMETRIC = {SKOS.related, SKOS.exactMatch, SKOS.closeMatch}
+
+    def _resolve_id(self, ident: str, allowed_kinds: list[str]) -> tuple[str, URIRef] | None:
+        """Find which class an ID belongs to by checking id_index.
+
+        Returns (kind, concept_iri) or None if the ID isn't found.
+        If multiple kinds match (shouldn't happen with current data), returns the first.
+        """
+        for k in allowed_kinds:
+            hit = self.id_index.get((k, ident))
+            if hit is not None:
+                return k, hit
+        return None
+
+    def build_connections(self, df: pd.DataFrame) -> dict[str, int]:
+        """Apply cross-class relations from the connections CSV.
+
+        Returns a stats dict: {edgelabel: n_edges_applied} plus 'skipped',
+        'unresolved', 'suspicious'.
+        """
+        col = self.cfg["columns"]["connections"]
+        edge_col, from_col, to_col = col["edgelabel"], col["from_id"], col["to_id"]
+        mapping = self.cfg["edge_mapping"]
+
+        stats: dict[str, int] = {}
+        skipped_unknown_label = 0
+        unresolved: list[dict] = []
+        # "Suspicious" = Generic-to-Generic where the from is a less-specific label
+        # than the to (e.g. Cup → Cup Rouletted). Logged for review.
+        suspicious_generic_hierarchy: list[tuple[str, str]] = []
+
+        for _, row in df.iterrows():
+            label = str(row[edge_col]).strip()
+            from_id = str(row[from_col]).strip()
+            to_id = str(row[to_col]).strip()
+
+            if label not in mapping:
+                skipped_unknown_label += 1
+                continue
+            rule = mapping[label]
+            if rule.get("skip"):
+                continue
+
+            if is_null(from_id, self.null_markers) or is_null(to_id, self.null_markers):
+                unresolved.append({"label": label, "from": from_id, "to": to_id,
+                                   "reason": "empty id"})
+                continue
+
+            # Resolve from_id (can be one of several kinds)
+            resolved_from = self._resolve_id(from_id, rule["from_kinds"])
+            if resolved_from is None:
+                unresolved.append({"label": label, "from": from_id, "to": to_id,
+                                   "reason": f"from-id not in {rule['from_kinds']}"})
+                continue
+            from_kind, from_iri = resolved_from
+
+            # Resolve to_id (single kind)
+            to_iri = self.id_index.get((rule["to_kind"], to_id))
+            if to_iri is None:
+                unresolved.append({"label": label, "from": from_id, "to": to_id,
+                                   "reason": f"to-id not in {rule['to_kind']}"})
+                continue
+
+            # Don't self-link (defensive; CSV shouldn't have these)
+            if from_iri == to_iri:
+                unresolved.append({"label": label, "from": from_id, "to": to_id,
+                                   "reason": "self-link"})
+                continue
+
+            prop = self._PROPERTY_MAP[rule["property"]]
+            inverse = self._PROPERTY_MAP.get(rule.get("inverse")) if rule.get("inverse") else None
+
+            # Emit the edge
+            self.graph.add((from_iri, prop, to_iri))
+            if inverse is not None:
+                self.graph.add((to_iri, inverse, from_iri))
+            elif prop in self._SYMMETRIC:
+                self.graph.add((to_iri, prop, from_iri))
+
+            # Optional LADO sub-property (preserves feature-similarity semantics)
+            sub = rule.get("lado_subproperty")
+            if sub:
+                sub_prop = URIRef(f"{self.LADO}{sub}")
+                self.graph.add((from_iri, sub_prop, to_iri))
+                self.graph.add((to_iri, sub_prop, from_iri))
+
+            # Flag potentially reversed Generic→Generic edges so user can review
+            if label == "has generic form" and from_kind == "generic":
+                from_label = str(self.graph.value(from_iri, SKOS.prefLabel) or "?")
+                to_label = str(self.graph.value(to_iri, SKOS.prefLabel) or "?")
+                # Heuristic: if the *from* label is a prefix of the *to* label,
+                # the edge is probably reversed (e.g. "Cup" → "Cup Rouletted").
+                if to_label.lower().startswith(from_label.lower() + " "):
+                    suspicious_generic_hierarchy.append((from_label, to_label))
+
+            stats[label] = stats.get(label, 0) + 1
+
+        stats["_skipped_unknown_label"] = skipped_unknown_label
+        stats["_unresolved"] = len(unresolved)
+        stats["_suspicious_generic_hierarchy"] = suspicious_generic_hierarchy
+
+        log.info("Connections applied:")
+        for k, v in stats.items():
+            if not k.startswith("_"):
+                log.info("  %-28s  %d", k, v)
+        if skipped_unknown_label:
+            log.warning("  %d row(s) had an unknown edgelabel (skipped)", skipped_unknown_label)
+        if unresolved:
+            log.warning("  %d row(s) could not be resolved — see validation_report.md",
+                        len(unresolved))
+            # Expose for the report
+            self._connection_unresolved = unresolved
+        else:
+            self._connection_unresolved = []
+        if suspicious_generic_hierarchy:
+            log.warning("  %d possibly reversed Generic→Generic edges — see validation_report.md",
+                        len(suspicious_generic_hierarchy))
+
+        return stats
+
 
 def build_skos(cfg: dict, project_root: Path) -> tuple[Path, int]:
     """Build the SKOS graph, serialize to Turtle, return (path, triple count)."""
@@ -261,11 +403,12 @@ def build_skos(cfg: dict, project_root: Path) -> tuple[Path, int]:
 
     log.info("Reading CSVs from %s", data_dir)
     files = cfg["input"]["files"]
-    df_generic   = read_csv(data_dir / files["generic"])
-    df_tradition = read_csv(data_dir / files["tradition"])
-    df_service   = read_csv(data_dir / files["service"])
-    df_publisher = read_csv(data_dir / files["publisher"])
-    df_potforms  = read_csv(data_dir / files["potforms"])
+    df_generic     = read_csv(data_dir / files["generic"])
+    df_tradition   = read_csv(data_dir / files["tradition"])
+    df_service     = read_csv(data_dir / files["service"])
+    df_publisher   = read_csv(data_dir / files["publisher"])
+    df_potforms    = read_csv(data_dir / files["potforms"])
+    df_connections = read_csv(data_dir / files["connections"])
 
     log.info("Building SKOS graph…")
     b = SkosBuilder(cfg)
@@ -276,11 +419,12 @@ def build_skos(cfg: dict, project_root: Path) -> tuple[Path, int]:
     b.build_services(df_service)
     b.build_publishers(df_publisher)      # must come before potforms (broader lookup)
     b.build_potforms(df_potforms)
+    conn_stats = b.build_connections(df_connections)
 
     out_path = output_dir / cfg["output"]["skos_file"]
     b.graph.serialize(destination=str(out_path), format="turtle")
     log.info("✓ Wrote %d triples to %s", len(b.graph), out_path)
-    return out_path, len(b.graph)
+    return out_path, len(b.graph), conn_stats, b._connection_unresolved
 
 
 # =============================================================================
@@ -354,6 +498,8 @@ def data_graph_stats(data_graph: Graph) -> dict:
     schemes = set(data_graph.subjects(RDF.type, SKOS.ConceptScheme))
     depictions = sum(1 for _ in data_graph.subject_objects(FOAF.depiction))
     broader = sum(1 for _ in data_graph.subject_objects(SKOS.broader))
+    related = sum(1 for _ in data_graph.subject_objects(SKOS.related))
+    exact_match = sum(1 for _ in data_graph.subject_objects(SKOS.exactMatch))
     return {
         "triples": len(data_graph),
         "concepts": len(concepts),
@@ -361,6 +507,8 @@ def data_graph_stats(data_graph: Graph) -> dict:
         "schemes": len(schemes),
         "depictions": depictions,
         "broader_edges": broader,
+        "related_edges": related,
+        "exact_match_edges": exact_match,
     }
 
 
@@ -370,6 +518,8 @@ def write_markdown_report(
     shape_paths: list[Path],
     stats: dict,
     summary: dict,
+    conn_stats: dict | None = None,
+    conn_unresolved: list | None = None,
     max_examples_per_group: int = 5,
 ) -> None:
     lines: list[str] = []
@@ -397,7 +547,69 @@ def write_markdown_report(
         f"- skos:Collection: **{stats['collections']}**",
         f"- foaf:depiction statements: **{stats['depictions']}**",
         f"- skos:broader edges: **{stats['broader_edges']}**",
+        f"- skos:related edges: **{stats['related_edges']}**",
+        f"- skos:exactMatch edges: **{stats['exact_match_edges']}**",
         "",
+    ]
+
+    # --- Connections section (from v_ceratyont_connections.csv) ---
+    if conn_stats:
+        lines += ["## Connections applied", ""]
+        lines.append("| Edge label | Count |")
+        lines.append("|---|---:|")
+        for k, v in conn_stats.items():
+            if k.startswith("_"):
+                continue
+            lines.append(f"| `{k}` | {v} |")
+        lines.append("")
+
+        total_unresolved = conn_stats.get("_unresolved", 0)
+        total_skipped = conn_stats.get("_skipped_unknown_label", 0)
+        suspicious = conn_stats.get("_suspicious_generic_hierarchy", []) or []
+
+        if total_skipped or total_unresolved or suspicious:
+            lines += ["### Issues found during connection import", ""]
+            if total_skipped:
+                lines.append(f"- **{total_skipped}** row(s) had an unrecognised `edgelabel` and were skipped.")
+            if total_unresolved:
+                lines.append(f"- **{total_unresolved}** row(s) could not be resolved (ID not in lookup tables or wrong class).")
+            if suspicious:
+                lines.append(f"- **{len(suspicious)}** Generic→Generic `skos:broader` edges look possibly reversed (the *from* label is a prefix of the *to* label).")
+            lines.append("")
+
+        if conn_unresolved:
+            lines += [
+                "#### Unresolved connections (first 20)",
+                "",
+                "| Edge label | from-id | to-id | Reason |",
+                "|---|---|---|---|",
+            ]
+            for u in conn_unresolved[:20]:
+                lines.append(
+                    f"| `{u['label']}` | `{u['from']}` | `{u['to']}` | {u['reason']} |"
+                )
+            if len(conn_unresolved) > 20:
+                lines.append(f"| *…and {len(conn_unresolved) - 20} more* | | | |")
+            lines.append("")
+
+        if suspicious:
+            lines += [
+                "#### Possibly reversed Generic→Generic edges",
+                "",
+                "These edges go `from → skos:broader → to`, but the *from* label looks "
+                "more specific than the *to* label. Review and flip in the source data "
+                "if needed.",
+                "",
+                "| From (now broader of To) | To |",
+                "|---|---|",
+            ]
+            for f, t in suspicious[:20]:
+                lines.append(f"| {f} | {t} |")
+            if len(suspicious) > 20:
+                lines.append(f"| *…and {len(suspicious) - 20} more* | |")
+            lines.append("")
+
+    lines += [
         "## Overall result",
         "",
     ]
@@ -475,7 +687,8 @@ def write_markdown_report(
 
 
 def validate_skos(
-    cfg: dict, project_root: Path, skos_path: Path, verbose: bool = False
+    cfg: dict, project_root: Path, skos_path: Path, verbose: bool = False,
+    conn_stats: dict | None = None, conn_unresolved: list | None = None,
 ) -> bool:
     output_dir = (project_root / cfg["output"]["dir"]).resolve()
     ttl_report_path = output_dir / cfg["output"]["validation_report_ttl"]
@@ -524,7 +737,10 @@ def validate_skos(
     # 2) Human-readable Markdown report
     stats = data_graph_stats(data_graph)
     summary = parse_report(results_graph)
-    write_markdown_report(md_report_path, skos_path, shape_paths, stats, summary)
+    write_markdown_report(
+        md_report_path, skos_path, shape_paths, stats, summary,
+        conn_stats=conn_stats, conn_unresolved=conn_unresolved,
+    )
     log.info("Markdown report → %s", md_report_path)
 
     # 3) Console output: summary + pyshacl's built-in text
@@ -580,18 +796,24 @@ def main(argv: list[str] | None = None) -> int:
         project_root = args.config.parent
 
         # Step 1: build
+        conn_stats: dict | None = None
+        conn_unresolved: list | None = None
         if args.skip_build:
             skos_path = (project_root / cfg["output"]["dir"] / cfg["output"]["skos_file"]).resolve()
             log.info("--skip-build: validating existing %s", skos_path)
         else:
-            skos_path, _ = build_skos(cfg, project_root)
+            skos_path, _, conn_stats, conn_unresolved = build_skos(cfg, project_root)
 
         # Step 2: validate
         if args.skip_validation:
             log.info("--skip-validation: done.")
             return 0
 
-        conforms = validate_skos(cfg, project_root, skos_path, verbose=args.verbose)
+        conforms = validate_skos(
+            cfg, project_root, skos_path,
+            verbose=args.verbose,
+            conn_stats=conn_stats, conn_unresolved=conn_unresolved,
+        )
         return 0 if (conforms or not args.strict) else 1
 
     except FileNotFoundError as e:

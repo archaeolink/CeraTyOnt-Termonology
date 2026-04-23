@@ -9,6 +9,9 @@ namespaces:
   base_uri: "http://www.w3id.org/archlink/terms/ceratyont-terminology/"
   scheme_iri: "http://www.w3id.org/archlink/terms/ceratyont-terminology/scheme"
   image_base_url: "https://raw.githubusercontent.com/archaeolink/CeraTyOnt/main/img/"
+  # LADO (Linked Archaeological Data Ontology) — for feature-similarity sub-properties
+  # of skos:related (hasSameRim / Footring / Roulette / Groove / Flute).
+  lado_uri: "http://www.w3id.org/lado/"
 
 # --- Language tag for all labels ---
 language: "en"
@@ -17,11 +20,12 @@ language: "en"
 input:
   data_dir: "../data"
   files:
-    generic:    "tbllookupformsgeneric.csv"
-    tradition:  "tbllookupformstradition.csv"
-    service:    "tbllookupformsservices.csv"
-    publisher:  "tbllookuppublisher.csv"
-    potforms:   "v_ceratyont_potforms_distinct.csv"
+    generic:     "tbllookupformsgeneric.csv"
+    tradition:   "tbllookupformstradition.csv"
+    service:     "tbllookupformsservices.csv"
+    publisher:   "tbllookuppublisher.csv"
+    potforms:    "v_ceratyont_potforms_distinct.csv"
+    connections: "v_ceratyont_connections.csv"
 
 # --- Column mappings (CSV header → logical field) ---
 columns:
@@ -45,6 +49,66 @@ columns:
     label: "label"
     image: "image"
     publisher: "publisher"
+  connections:
+    id: "id"
+    edgelabel: "edgelabel"
+    from_id: "id_fromlookupform"
+    to_id: "id_tolookupform"
+
+# --- Edge mapping: how each `edgelabel` value translates to RDF ---
+# Each mapping defines the source/target concept kinds and the property to use.
+# kind="any" means: look up the ID in all lookup tables to determine concept kind.
+# `lado_subproperty` is an optional project-specific sub-property of skos:related
+# that preserves the specific feature-similarity semantics.
+edge_mapping:
+  "has tradition":
+    # from can be potform OR service (CSV has both)
+    from_kinds:  ["potform", "service"]
+    to_kind:     "tradition"
+    property:    "skos:broader"
+    inverse:     "skos:narrower"
+  "has generic form":
+    # from can be potform OR generic (CSV has Generic-to-Generic edges too)
+    from_kinds:  ["potform", "generic"]
+    to_kind:     "generic"
+    property:    "skos:broader"
+    inverse:     "skos:narrower"
+  "has service member":
+    from_kinds:  ["potform"]
+    to_kind:     "service"
+    property:    "skos:related"  # symmetric, emitted in both directions
+  "has publisher":
+    # Already modelled from v_ceratyont_potforms_distinct.csv; skip here.
+    skip: true
+  "is same form as":
+    from_kinds:  ["potform"]
+    to_kind:     "potform"
+    property:    "skos:exactMatch"  # symmetric
+  "has same rim as":
+    from_kinds: ["potform"]
+    to_kind:    "potform"
+    property:   "skos:related"
+    lado_subproperty: "hasSameRim"
+  "has same footring as":
+    from_kinds: ["potform"]
+    to_kind:    "potform"
+    property:   "skos:related"
+    lado_subproperty: "hasSameFootring"
+  "has same roulette as":
+    from_kinds: ["potform"]
+    to_kind:    "potform"
+    property:   "skos:related"
+    lado_subproperty: "hasSameRoulette"
+  "has same groove as":
+    from_kinds: ["potform"]
+    to_kind:    "potform"
+    property:   "skos:related"
+    lado_subproperty: "hasSameGroove"
+  "has same flute as":
+    from_kinds: ["potform"]
+    to_kind:    "potform"
+    property:   "skos:related"
+    lado_subproperty: "hasSameFlute"
 
 # --- IRI local-name prefixes (final IRI = base_uri + prefix + id) ---
 iri_prefixes:
